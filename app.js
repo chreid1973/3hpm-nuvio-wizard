@@ -7,6 +7,8 @@ const instanceNotes = {
   'https://comet.elfhosted.com': 'Not recommended for this wizard right now. You found this did not work with the Nuvio flow.',
 };
 
+const resolutionKeys = ['r2160p', 'r1440p', 'r1080p', 'r720p', 'r576p', 'r480p', 'r360p', 'r240p', 'unknown'];
+
 const presets = {
   beginner: {
     description: 'A clean starter setup. Cached results only, trash releases removed, no torrent fallback, and account torrent scraping enabled. Best for people who just want it to work.',
@@ -17,9 +19,10 @@ const presets = {
     enableTorrent: false,
     deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
+    resolutions: ['r2160p', 'r1440p', 'r1080p', 'r720p'],
   },
   quality: {
-    description: 'Prioritizes higher quality cached results while keeping junk filtered out. No size cap, dedupe enabled, and no direct torrent fallback.',
+    description: 'Prioritizes higher quality cached results while keeping junk filtered out. 4K, 1440p, and 1080p only, no size cap, dedupe enabled, and no direct torrent fallback.',
     maxResultsPerResolution: 10,
     maxSize: 0,
     cachedOnly: true,
@@ -27,9 +30,10 @@ const presets = {
     enableTorrent: false,
     deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
+    resolutions: ['r2160p', 'r1440p', 'r1080p'],
   },
   lowBandwidth: {
-    description: 'Keeps results lighter. Cached only, trash removed, dedupe enabled, and a 12 GB size cap to avoid giant remux-sized surprises.',
+    description: 'Keeps results lighter. Cached only, trash removed, dedupe enabled, 1080p and 720p only, and a 12 GB size cap to avoid giant remux-sized surprises.',
     maxResultsPerResolution: 5,
     maxSize: 12,
     cachedOnly: true,
@@ -37,9 +41,10 @@ const presets = {
     enableTorrent: false,
     deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
+    resolutions: ['r1080p', 'r720p'],
   },
   maximum: {
-    description: 'More results without opening the floodgates. Cached only, trash removed, dedupe enabled, 10 results per resolution, and no size cap.',
+    description: 'More results without opening the floodgates. Cached only, trash removed, dedupe enabled, 10 results per resolution, all resolutions enabled, and no size cap.',
     maxResultsPerResolution: 10,
     maxSize: 0,
     cachedOnly: true,
@@ -47,6 +52,7 @@ const presets = {
     enableTorrent: false,
     deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
+    resolutions: resolutionKeys,
   },
 };
 
@@ -61,6 +67,26 @@ function base64EncodeUnicode(value) {
 
 function getSelectedInstance() {
   return document.getElementById('instance').value.replace(/\/$/, '');
+}
+
+function getSelectedResolutions() {
+  const checked = [...document.querySelectorAll('.resolutionOption:checked')].map((input) => input.value);
+  return checked.length ? checked : resolutionKeys;
+}
+
+function setSelectedResolutions(selectedKeys) {
+  const selected = new Set(selectedKeys);
+  document.querySelectorAll('.resolutionOption').forEach((input) => {
+    input.checked = selected.has(input.value);
+  });
+}
+
+function buildResolutionsConfig() {
+  const selected = new Set(getSelectedResolutions());
+  return resolutionKeys.reduce((config, key) => {
+    config[key] = selected.has(key);
+    return config;
+  }, {});
 }
 
 function buildCometConfig() {
@@ -82,7 +108,7 @@ function buildCometConfig() {
       exclude: [],
       preferred: [],
     },
-    resolutions: {},
+    resolutions: buildResolutionsConfig(),
     options: {
       remove_ranks_under: -10000000000,
       allow_english_in_languages: false,
@@ -124,6 +150,7 @@ function applyPreset(name) {
   document.getElementById('enableTorrent').checked = preset.enableTorrent;
   document.getElementById('dedupe').checked = preset.deduplicateStreams;
   document.getElementById('scrapeAccount').checked = preset.scrapeDebridAccountTorrents;
+  setSelectedResolutions(preset.resolutions);
   document.getElementById('presetDescription').textContent = preset.description;
   updateOutput();
 }
@@ -145,6 +172,16 @@ document.getElementById('preset').addEventListener('change', (event) => {
 document.getElementById('instance').addEventListener('change', updateOutput);
 
 document.getElementById('wizardForm').addEventListener('input', updateOutput);
+
+document.getElementById('selectAllResolutions').addEventListener('click', () => {
+  setSelectedResolutions(resolutionKeys);
+  updateOutput();
+});
+
+document.getElementById('qualityResolutions').addEventListener('click', () => {
+  setSelectedResolutions(['r2160p', 'r1440p', 'r1080p']);
+  updateOutput();
+});
 
 document.getElementById('copyManifest').addEventListener('click', (event) => {
   copyValue('#manifestUrl', event.currentTarget);

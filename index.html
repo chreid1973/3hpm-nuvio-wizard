@@ -9,8 +9,23 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Fragment+Mono&display=swap" rel="stylesheet" />
 <link rel="stylesheet" href="style.css" />
+<style>
+  .releaseBanner{position:sticky;top:0;z-index:50;overflow:hidden;background:#161616;color:#fbf8ef;border-bottom:3px solid #ff3d1f;font-family:"Fragment Mono",ui-monospace,Menlo,monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
+  .releaseBannerTrack{display:inline-flex;gap:2rem;min-width:max-content;padding:.65rem 0;animation:releaseBannerScroll 34s linear infinite}
+  .releaseBannerTrack span{display:inline-block;padding-left:2rem}
+  .releaseBanner strong{color:#ff3d1f}
+  @keyframes releaseBannerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+  @media (prefers-reduced-motion:reduce){.releaseBannerTrack{animation:none;white-space:normal;display:block;padding:.65rem 1rem}.releaseBannerTrack span{padding-left:0;display:block}}
+</style>
 </head>
 <body>
+
+<div class="releaseBanner" role="note" aria-label="Important Nuvio version notice">
+  <div class="releaseBannerTrack">
+    <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+    <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+  </div>
+</div>
 
 <header class="topbar">
   <div class="brand" aria-label="3 Hole Punch Media">
@@ -68,7 +83,6 @@
 
   <form id="wizardForm" class="wizardFlow">
 
-    <!-- STEP 1 ----------------------------------------------------------- -->
     <section class="stepCard active" id="step1">
       <header class="stepHeader">
         <span class="stepNumber" aria-hidden="true">01</span>
@@ -105,7 +119,6 @@
       </div>
     </section>
 
-    <!-- STEP 2 ----------------------------------------------------------- -->
     <section class="stepCard collapsed" id="step2">
       <header class="stepHeader">
         <span class="stepNumber" aria-hidden="true">02</span>
@@ -224,7 +237,6 @@
       </div>
     </section>
 
-    <!-- STEP 3 ----------------------------------------------------------- -->
     <section class="stepCard collapsed" id="step3">
       <header class="stepHeader">
         <span class="stepNumber" aria-hidden="true">03</span>
@@ -311,7 +323,6 @@
 
 <script src="app.js"></script>
 
-<!-- Progress indicator sync. Watches step card class changes; does not touch app.js logic. -->
 <script>
 (function () {
   var steps = ['step1', 'step2', 'step3'];

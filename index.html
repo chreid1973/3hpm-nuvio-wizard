@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>3HPM Nuvio Wizard</title>
+  <meta name="description" content="Generate clean Nuvio Connected Services scraper manifest URLs for Comet." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;600;700&family=Fragment+Mono&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main class="shell">
+    <section class="hero panel">
+      <p class="eyebrow">3 Hole Punch Media</p>
+      <h1>Nuvio Connected Services Scraper Wizard</h1>
+      <p class="lede">
+        Build a clean Comet manifest for Nuvio’s new Connected Services flow. Connect TorBox inside Nuvio first. This page does not ask for, store, or embed your TorBox API key.
+      </p>
+      <div class="notice">
+        <strong>Important:</strong> this is a scraper manifest generator. TorBox should be connected in Nuvio under Settings → Connected Services.
+      </div>
+    </section>
+
+    <section class="grid">
+      <form class="panel controls" id="wizardForm">
+        <div class="field">
+          <label for="addon">Addon</label>
+          <select id="addon" name="addon">
+            <option value="comet" selected>Comet</option>
+          </select>
+          <small>V1 supports Comet only. Torrentio comes next after testing.</small>
+        </div>
+
+        <div class="field">
+          <label for="preset">Preset</label>
+          <select id="preset" name="preset">
+            <option value="beginner" selected>Beginner Safe</option>
+            <option value="quality">Best Quality</option>
+            <option value="lowBandwidth">Low Bandwidth</option>
+            <option value="maximum">Maximum Results</option>
+          </select>
+        </div>
+
+        <div class="field two">
+          <label for="maxResults">Max results per resolution</label>
+          <input id="maxResults" name="maxResults" type="number" min="0" step="1" value="0" />
+          <small>0 means unlimited.</small>
+        </div>
+
+        <div class="field two">
+          <label for="maxSize">Max size in GB</label>
+          <input id="maxSize" name="maxSize" type="number" min="0" step="0.5" value="0" />
+          <small>0 means no size cap.</small>
+        </div>
+
+        <fieldset class="checks">
+          <legend>Options</legend>
+          <label><input id="cachedOnly" type="checkbox" checked /> Cached only</label>
+          <label><input id="removeTrash" type="checkbox" checked /> Remove trash releases</label>
+          <label><input id="enableTorrent" type="checkbox" /> Enable torrent fallback</label>
+          <label><input id="dedupe" type="checkbox" /> Deduplicate streams</label>
+          <label><input id="scrapeAccount" type="checkbox" checked /> Scrape debrid account torrents</label>
+        </fieldset>
+      </form>
+
+      <section class="panel output">
+        <div class="outputHeader">
+          <div>
+            <p class="eyebrow">Generated manifest</p>
+            <h2>Ready for Nuvio</h2>
+          </div>
+          <span class="badge">Comet</span>
+        </div>
+
+        <label for="manifestUrl">Manifest URL</label>
+        <textarea id="manifestUrl" readonly rows="6"></textarea>
+
+        <div class="actions">
+          <button id="copyManifest" type="button">Copy Manifest URL</button>
+          <a id="openManifest" class="button ghost" href="#" target="_blank" rel="noopener">Open Manifest</a>
+        </div>
+
+        <div class="renameBox">
+          <label for="renameSuggestion">Suggested Nuvio addon name</label>
+          <input id="renameSuggestion" readonly value="3HPM | Comet TB Instant" />
+          <button id="copyName" type="button" class="smallBtn">Copy Name</button>
+        </div>
+
+        <div class="qrWrap">
+          <img id="qrCode" alt="QR code for generated manifest URL" />
+          <p>Scan this from another device, or copy the manifest into Nuvio manually.</p>
+        </div>
+      </section>
+    </section>
+
+    <section class="panel how">
+      <h2>How to use it</h2>
+      <ol>
+        <li>Connect TorBox in Nuvio: Settings → Connected Services → TorBox.</li>
+        <li>Pick a preset here and copy the generated manifest URL.</li>
+        <li>Add the manifest URL in Nuvio.</li>
+        <li>Rename the addon in the Nuvio web account to the suggested 3HPM name.</li>
+      </ol>
+      <p class="fineprint">No TorBox API key belongs in this wizard. If Nuvio changes Connected Services behavior, this tool may need adjustment.</p>
+    </section>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

@@ -154,12 +154,15 @@ function applyPreset(name) {
   updateOutput();
 }
 
-function showStep(stepId) {
+function showStep(stepId, shouldScroll = true) {
   document.querySelectorAll('.stepCard').forEach((step) => {
     step.classList.toggle('active', step.id === stepId);
     step.classList.toggle('collapsed', step.id !== stepId);
   });
-  document.getElementById(stepId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+  if (shouldScroll) {
+    document.getElementById(stepId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
 }
 
 async function copyValue(selector, button) {
@@ -207,4 +210,4 @@ document.getElementById('copyName').addEventListener('click', (event) => {
 });
 
 applyPreset('beginner');
-showStep('step1');
+showStep('step1', false);

@@ -3,8 +3,8 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>3HPM Nuvio Wizard</title>
-  <meta name="description" content="Generate clean Nuvio Connected Services scraper manifest URLs for Comet." />
+  <title>3HPM Nuvio Connected Services Wizard</title>
+  <meta name="description" content="Generate clean, keyless Comet scraper manifests for Nuvio Connected Services." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;600;700&family=Fragment+Mono&display=swap" rel="stylesheet" />
@@ -14,23 +14,23 @@
   <main class="shell">
     <section class="hero panel">
       <p class="eyebrow">3 Hole Punch Media</p>
-      <h1>Nuvio Connected Services Scraper Wizard</h1>
+      <h1>Nuvio Connected Services Wizard</h1>
       <p class="lede">
-        Build a clean Comet manifest for Nuvio’s new Connected Services flow. Connect TorBox inside Nuvio first. This page does not ask for, store, or embed your TorBox API key.
+        Generate a clean, keyless Comet scraper manifest for Nuvio. Connect TorBox in Nuvio first, then use this page to build the addon URL. No TorBox API key goes into this wizard.
       </p>
       <div class="notice">
-        <strong>Important:</strong> this is a scraper manifest generator. TorBox should be connected in Nuvio under Settings → Connected Services.
+        <strong>Nuvio Connected Services only:</strong> TorBox must be connected in Nuvio under Settings → Connected Services. This wizard only builds the scraper manifest.
       </div>
     </section>
 
     <section class="grid">
       <form class="panel controls" id="wizardForm">
         <div class="field">
-          <label for="addon">Addon</label>
+          <label for="addon">Scraper addon</label>
           <select id="addon" name="addon">
             <option value="comet" selected>Comet</option>
           </select>
-          <small>V1 supports Comet only. Torrentio comes next after testing.</small>
+          <small>Confirmed target for v1. Torrentio support will be added after separate testing.</small>
         </div>
 
         <div class="field">
@@ -47,30 +47,35 @@
         <div class="field two">
           <label for="maxResults">Max results per resolution</label>
           <input id="maxResults" name="maxResults" type="number" min="0" step="1" value="0" />
-          <small>0 means unlimited.</small>
+          <small>10 is a strong tested value. 0 means unlimited.</small>
         </div>
 
         <div class="field two">
           <label for="maxSize">Max size in GB</label>
           <input id="maxSize" name="maxSize" type="number" min="0" step="0.5" value="0" />
-          <small>0 means no size cap.</small>
+          <small>Use this for low-bandwidth setups. 0 means no size cap.</small>
         </div>
 
         <fieldset class="checks">
-          <legend>Options</legend>
+          <legend>Nuvio-safe options</legend>
           <label><input id="cachedOnly" type="checkbox" checked /> Cached only</label>
           <label><input id="removeTrash" type="checkbox" checked /> Remove trash releases</label>
-          <label><input id="enableTorrent" type="checkbox" /> Enable torrent fallback</label>
-          <label><input id="dedupe" type="checkbox" /> Deduplicate streams</label>
+          <label><input id="dedupe" type="checkbox" checked /> Deduplicate streams</label>
           <label><input id="scrapeAccount" type="checkbox" checked /> Scrape debrid account torrents</label>
         </fieldset>
+
+        <details class="advanced">
+          <summary>Advanced: torrent fallback</summary>
+          <p>Leave this off for the normal Nuvio Connected Services setup. Turning it on may show direct torrent or magnet results depending on Comet and Nuvio behavior.</p>
+          <label><input id="enableTorrent" type="checkbox" /> Enable torrent fallback</label>
+        </details>
       </form>
 
       <section class="panel output">
         <div class="outputHeader">
           <div>
             <p class="eyebrow">Generated manifest</p>
-            <h2>Ready for Nuvio</h2>
+            <h2>Keyless and ready for Nuvio</h2>
           </div>
           <span class="badge">Comet</span>
         </div>
@@ -91,7 +96,7 @@
 
         <div class="qrWrap">
           <img id="qrCode" alt="QR code for generated manifest URL" />
-          <p>Scan this from another device, or copy the manifest into Nuvio manually.</p>
+          <p>Use the QR code for TV setup, or copy the manifest into Nuvio manually.</p>
         </div>
       </section>
     </section>
@@ -99,12 +104,12 @@
     <section class="panel how">
       <h2>How to use it</h2>
       <ol>
-        <li>Connect TorBox in Nuvio: Settings → Connected Services → TorBox.</li>
-        <li>Pick a preset here and copy the generated manifest URL.</li>
-        <li>Add the manifest URL in Nuvio.</li>
+        <li>In Nuvio, connect TorBox under Settings → Connected Services → TorBox.</li>
+        <li>Pick a preset here. Do not enter a TorBox API key anywhere on this page.</li>
+        <li>Copy the generated manifest URL and add it to Nuvio.</li>
         <li>Rename the addon in the Nuvio web account to the suggested 3HPM name.</li>
       </ol>
-      <p class="fineprint">No TorBox API key belongs in this wizard. If Nuvio changes Connected Services behavior, this tool may need adjustment.</p>
+      <p class="fineprint">This wizard is intentionally narrow. It exists to make Nuvio Connected Services setup less confusing, not to replace Comet’s full configure page.</p>
     </section>
   </main>
 

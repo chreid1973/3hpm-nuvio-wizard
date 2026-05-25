@@ -20,13 +20,14 @@ body {
 }
 
 .shell {
-  width: min(1200px, calc(100% - 32px));
+  width: min(980px, calc(100% - 32px));
   margin: 40px auto;
   display: grid;
   gap: 24px;
 }
 
-.panel {
+.panel,
+.stepCard {
   background: rgba(18, 25, 35, 0.88);
   border: 1px solid var(--border);
   border-radius: 24px;
@@ -60,10 +61,85 @@ body {
   border: 1px solid rgba(83, 179, 255, 0.2);
 }
 
-.grid {
+.wizardFlow {
   display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 24px;
+  gap: 18px;
+}
+
+.stepCard {
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+
+.stepCard.collapsed .stepBody,
+.stepCard.collapsed .setupChecklist,
+.stepCard.collapsed .stepIntro,
+.stepCard.collapsed .nextStep {
+  display: none;
+}
+
+.stepCard.collapsed {
+  opacity: 0.58;
+}
+
+.stepCard.active {
+  border-color: rgba(83, 179, 255, 0.45);
+}
+
+.stepHeader {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.stepHeader h2 {
+  margin: 4px 0 0;
+}
+
+.stepNumber {
+  display: inline-grid;
+  place-items: center;
+  width: 42px;
+  height: 42px;
+  border-radius: 999px;
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+  font-weight: 700;
+  flex: 0 0 auto;
+}
+
+.stepIntro,
+.finalSteps,
+.helperText {
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+.setupChecklist {
+  display: grid;
+  gap: 12px;
+  margin: 22px 0;
+}
+
+.setupChecklist label,
+.checks label,
+.advanced label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.setupChecklist input,
+.checks input,
+.advanced input {
+  width: auto;
+}
+
+.stepActions,
+.actions,
+.miniActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 16px;
 }
 
 .field,
@@ -71,6 +147,12 @@ body {
   display: grid;
   gap: 8px;
   margin-bottom: 20px;
+}
+
+.settingsGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
 }
 
 label,
@@ -81,8 +163,7 @@ legend {
 small,
 .fineprint,
 .presetDescription,
-.advanced p,
-.helperText {
+.advanced p {
   color: var(--muted);
 }
 
@@ -97,7 +178,6 @@ small,
 
 .helperText {
   margin: 0;
-  line-height: 1.4;
 }
 
 input,
@@ -125,18 +205,6 @@ textarea {
   line-height: 1.5;
 }
 
-.checks label,
-.advanced label {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.checks input,
-.advanced input {
-  width: auto;
-}
-
 .resolutionGrid {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -150,14 +218,9 @@ textarea {
   padding: 10px 12px;
 }
 
-.miniActions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 10px;
-  margin-top: 4px;
-}
-
-.ghostBtn {
+.ghostBtn,
+.backStep,
+.button.ghost {
   background: #182434;
   border: 1px solid var(--border);
 }
@@ -179,12 +242,6 @@ textarea {
   line-height: 1.5;
 }
 
-.actions {
-  display: flex;
-  gap: 12px;
-  margin-top: 16px;
-}
-
 button,
 .button {
   border: 0;
@@ -194,24 +251,6 @@ button,
   text-decoration: none;
   color: var(--text);
   background: linear-gradient(135deg, var(--accent), var(--accent2));
-}
-
-.button.ghost {
-  background: #182434;
-}
-
-.outputHeader {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
-}
-
-.badge {
-  border: 1px solid var(--border);
-  padding: 8px 12px;
-  border-radius: 999px;
-  color: var(--accent);
 }
 
 .renameBox {
@@ -238,22 +277,32 @@ button,
   padding: 12px;
 }
 
-.how ol {
-  line-height: 1.8;
+.finalSteps {
+  margin-top: 24px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(83, 179, 255, 0.06);
+  border: 1px solid rgba(83, 179, 255, 0.16);
 }
 
-@media (max-width: 900px) {
-  .grid {
-    grid-template-columns: 1fr;
-  }
+.finalSteps h3 {
+  color: var(--text);
+  margin-top: 0;
 }
 
-@media (max-width: 560px) {
+.finalSteps ol {
+  margin-bottom: 0;
+  line-height: 1.7;
+}
+
+@media (max-width: 760px) {
+  .settingsGrid,
   .resolutionGrid {
     grid-template-columns: 1fr;
   }
 
-  .actions {
+  .actions,
+  .stepActions {
     flex-direction: column;
   }
 }

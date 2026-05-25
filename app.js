@@ -1,4 +1,11 @@
-const COMET_BASE_URL = 'https://cometfortheweebs.midnightignite.me';
+const instanceNotes = {
+  'https://cometfortheweebs.midnightignite.me': 'Default uses the Midnightignite instance you tested successfully in Nuvio.',
+  'https://comet.feels.legal': 'Official Comet instance. Use this if it works better for your region or device.',
+  'https://cometa.stremx.net': 'Community instance. Test in Nuvio before sharing as recommended.',
+  'https://comet.stremio.ru': 'Community instance. Test in Nuvio before sharing as recommended.',
+  'https://comet.forthewizards.uk': 'Community instance. Test in Nuvio before sharing as recommended.',
+  'https://comet.elfhosted.com': 'Not recommended for this wizard right now. You found this did not work with the Nuvio flow.',
+};
 
 const presets = {
   beginner: {
@@ -52,6 +59,10 @@ function base64EncodeUnicode(value) {
   return btoa(binary);
 }
 
+function getSelectedInstance() {
+  return document.getElementById('instance').value.replace(/\/$/, '');
+}
+
 function buildCometConfig() {
   return {
     maxResultsPerResolution: Number(document.getElementById('maxResults').value) || 0,
@@ -83,10 +94,17 @@ function buildCometConfig() {
 function buildManifestUrl() {
   const config = buildCometConfig();
   const encoded = base64EncodeUnicode(JSON.stringify(config));
-  return `${COMET_BASE_URL}/${encoded}/manifest.json`;
+  return `${getSelectedInstance()}/${encoded}/manifest.json`;
+}
+
+function updateInstanceDescription() {
+  const selectedInstance = getSelectedInstance();
+  const description = instanceNotes[selectedInstance] || 'Test this instance in Nuvio before sharing it as recommended.';
+  document.getElementById('instanceDescription').textContent = description;
 }
 
 function updateOutput() {
+  updateInstanceDescription();
   const manifestUrl = buildManifestUrl();
   const manifestField = document.getElementById('manifestUrl');
   const openManifest = document.getElementById('openManifest');
@@ -123,6 +141,8 @@ async function copyValue(selector, button) {
 document.getElementById('preset').addEventListener('change', (event) => {
   applyPreset(event.target.value);
 });
+
+document.getElementById('instance').addEventListener('change', updateOutput);
 
 document.getElementById('wizardForm').addEventListener('input', updateOutput);
 

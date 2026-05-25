@@ -1,0 +1,187 @@
+* {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #0b0f14;
+  --panel: #121923;
+  --border: #243244;
+  --text: #eef3f8;
+  --muted: #98a6b5;
+  --accent: #53b3ff;
+  --accent2: #8b5cf6;
+}
+
+body {
+  margin: 0;
+  background: radial-gradient(circle at top, #182434 0%, var(--bg) 55%);
+  color: var(--text);
+  font-family: 'Familjen Grotesk', sans-serif;
+}
+
+.shell {
+  width: min(1200px, calc(100% - 32px));
+  margin: 40px auto;
+  display: grid;
+  gap: 24px;
+}
+
+.panel {
+  background: rgba(18, 25, 35, 0.88);
+  border: 1px solid var(--border);
+  border-radius: 24px;
+  padding: 24px;
+  backdrop-filter: blur(10px);
+}
+
+.hero h1 {
+  margin: 8px 0 12px;
+  font-size: clamp(2rem, 4vw, 4rem);
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.18em;
+  color: var(--accent);
+  font-size: 0.8rem;
+}
+
+.lede {
+  max-width: 75ch;
+  color: var(--muted);
+  line-height: 1.6;
+}
+
+.notice {
+  margin-top: 18px;
+  padding: 16px;
+  border-radius: 16px;
+  background: rgba(83, 179, 255, 0.08);
+  border: 1px solid rgba(83, 179, 255, 0.2);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+
+.field,
+.checks {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 20px;
+}
+
+label,
+legend {
+  font-weight: 600;
+}
+
+small,
+.fineprint {
+  color: var(--muted);
+}
+
+input,
+select,
+textarea,
+button {
+  font: inherit;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: #0c1219;
+  color: var(--text);
+  padding: 14px;
+}
+
+textarea {
+  resize: vertical;
+  min-height: 140px;
+  font-family: 'Fragment Mono', monospace;
+  line-height: 1.5;
+}
+
+.checks label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.checks input {
+  width: auto;
+}
+
+.actions {
+  display: flex;
+  gap: 12px;
+  margin-top: 16px;
+}
+
+button,
+.button {
+  border: 0;
+  border-radius: 14px;
+  padding: 14px 18px;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--text);
+  background: linear-gradient(135deg, var(--accent), var(--accent2));
+}
+
+.button.ghost {
+  background: #182434;
+}
+
+.outputHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.badge {
+  border: 1px solid var(--border);
+  padding: 8px 12px;
+  border-radius: 999px;
+  color: var(--accent);
+}
+
+.renameBox {
+  margin-top: 20px;
+  display: grid;
+  gap: 10px;
+}
+
+.smallBtn {
+  width: fit-content;
+}
+
+.qrWrap {
+  margin-top: 24px;
+  text-align: center;
+}
+
+.qrWrap img {
+  width: 220px;
+  max-width: 100%;
+  border-radius: 16px;
+  background: white;
+  padding: 12px;
+}
+
+.how ol {
+  line-height: 1.8;
+}
+
+@media (max-width: 900px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -4,7 +4,6 @@ const instanceNotes = {
   'https://cometa.stremx.net': 'Community instance. Test in Nuvio before sharing as recommended.',
   'https://comet.stremio.ru': 'Community instance. Test in Nuvio before sharing as recommended.',
   'https://comet.forthewizards.uk': 'Community instance. Test in Nuvio before sharing as recommended.',
-  'https://comet.elfhosted.com': 'Not recommended for this wizard right now. You found this did not work with the Nuvio flow.',
 };
 
 const resolutionKeys = ['r2160p', 'r1440p', 'r1080p', 'r720p', 'r576p', 'r480p', 'r360p', 'r240p', 'unknown'];

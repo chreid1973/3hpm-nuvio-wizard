@@ -81,7 +81,8 @@ legend {
 small,
 .fineprint,
 .presetDescription,
-.advanced p {
+.advanced p,
+.helperText {
   color: var(--muted);
 }
 
@@ -92,6 +93,11 @@ small,
   border: 1px solid rgba(83, 179, 255, 0.16);
   background: rgba(83, 179, 255, 0.06);
   line-height: 1.45;
+}
+
+.helperText {
+  margin: 0;
+  line-height: 1.4;
 }
 
 input,
@@ -129,6 +135,31 @@ textarea {
 .checks input,
 .advanced input {
   width: auto;
+}
+
+.resolutionGrid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.resolutionGrid label {
+  border: 1px solid var(--border);
+  background: rgba(12, 18, 25, 0.55);
+  border-radius: 14px;
+  padding: 10px 12px;
+}
+
+.miniActions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 4px;
+}
+
+.ghostBtn {
+  background: #182434;
+  border: 1px solid var(--border);
 }
 
 .advanced {
@@ -191,6 +222,7 @@ button,
 
 .smallBtn {
   width: fit-content;
+  padding: 10px 12px;
 }
 
 .qrWrap {
@@ -213,5 +245,15 @@ button,
 @media (max-width: 900px) {
   .grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .resolutionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actions {
+    flex-direction: column;
   }
 }

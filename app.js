@@ -155,6 +155,14 @@ function applyPreset(name) {
   updateOutput();
 }
 
+function showStep(stepId) {
+  document.querySelectorAll('.stepCard').forEach((step) => {
+    step.classList.toggle('active', step.id === stepId);
+    step.classList.toggle('collapsed', step.id !== stepId);
+  });
+  document.getElementById(stepId).scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
 async function copyValue(selector, button) {
   const element = document.querySelector(selector);
   await navigator.clipboard.writeText(element.value);
@@ -172,6 +180,14 @@ document.getElementById('preset').addEventListener('change', (event) => {
 document.getElementById('instance').addEventListener('change', updateOutput);
 
 document.getElementById('wizardForm').addEventListener('input', updateOutput);
+
+document.querySelectorAll('.nextStep').forEach((button) => {
+  button.addEventListener('click', () => showStep(button.dataset.next));
+});
+
+document.querySelectorAll('.backStep').forEach((button) => {
+  button.addEventListener('click', () => showStep(button.dataset.prev));
+});
 
 document.getElementById('selectAllResolutions').addEventListener('click', () => {
   setSelectedResolutions(resolutionKeys);
@@ -192,3 +208,4 @@ document.getElementById('copyName').addEventListener('click', (event) => {
 });
 
 applyPreset('beginner');
+showStep('step1');

@@ -16,10 +16,10 @@
       <p class="eyebrow">3 Hole Punch Media</p>
       <h1>Nuvio Connected Services Wizard</h1>
       <p class="lede">
-        Generate a clean, keyless Comet scraper manifest for Nuvio. Connect TorBox in Nuvio first, then use this page to build the addon URL. No TorBox API key goes into this wizard.
+        Generate a clean, keyless Comet scraper manifest for Nuvio. Connect TorBox in Nuvio first, make sure Resolve playable links is enabled, then use this page to build the addon URL. No TorBox API key goes into this wizard.
       </p>
       <div class="notice">
-        <strong>Nuvio Connected Services only:</strong> TorBox must be connected in Nuvio under Settings → Connected Services. This wizard only builds the scraper manifest.
+        <strong>Nuvio Connected Services only:</strong> TorBox must be connected in Nuvio under Settings → Connected Services, and Resolve playable links should be toggled on. This wizard only builds the scraper manifest.
       </div>
     </section>
 
@@ -80,7 +80,7 @@
         <div class="field two">
           <label for="maxResults">Max results per resolution</label>
           <input id="maxResults" name="maxResults" type="number" min="0" step="1" value="0" />
-          <small>10 is a strong tested value. 0 means unlimited.</small>
+          <small>10 is a strong tested value. 0 means unlimited. Comet handles final stream ranking.</small>
         </div>
 
         <div class="field two">
@@ -138,6 +138,7 @@
       <h2>How to use it</h2>
       <ol>
         <li>In Nuvio, connect TorBox under Settings → Connected Services → TorBox.</li>
+        <li>Still in Nuvio Connected Services, make sure Resolve playable links is toggled on.</li>
         <li>Pick a preset here. Do not enter a TorBox API key anywhere on this page.</li>
         <li>Copy the generated manifest URL and add it to Nuvio.</li>
         <li>Rename the addon in the Nuvio web account to the suggested 3HPM name.</li>

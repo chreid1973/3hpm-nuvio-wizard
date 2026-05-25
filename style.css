@@ -79,8 +79,19 @@ legend {
 }
 
 small,
-.fineprint {
+.fineprint,
+.presetDescription,
+.advanced p {
   color: var(--muted);
+}
+
+.presetDescription {
+  margin: 2px 0 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  border: 1px solid rgba(83, 179, 255, 0.16);
+  background: rgba(83, 179, 255, 0.06);
+  line-height: 1.45;
 }
 
 input,
@@ -108,14 +119,33 @@ textarea {
   line-height: 1.5;
 }
 
-.checks label {
+.checks label,
+.advanced label {
   display: flex;
   align-items: center;
   gap: 10px;
 }
 
-.checks input {
+.checks input,
+.advanced input {
   width: auto;
+}
+
+.advanced {
+  margin-top: 6px;
+  padding: 14px;
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  background: rgba(12, 18, 25, 0.5);
+}
+
+.advanced summary {
+  cursor: pointer;
+  font-weight: 700;
+}
+
+.advanced p {
+  line-height: 1.5;
 }
 
 .actions {

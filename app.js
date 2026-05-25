@@ -2,16 +2,18 @@ const COMET_BASE_URL = 'https://cometfortheweebs.midnightignite.me';
 
 const presets = {
   beginner: {
-    maxResultsPerResolution: 0,
+    description: 'A clean starter setup. Cached results only, trash releases removed, no torrent fallback, and account torrent scraping enabled. Best for people who just want it to work.',
+    maxResultsPerResolution: 5,
     maxSize: 0,
     cachedOnly: true,
     removeTrash: true,
     enableTorrent: false,
-    deduplicateStreams: false,
+    deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
   },
   quality: {
-    maxResultsPerResolution: 0,
+    description: 'Prioritizes higher quality cached results while keeping junk filtered out. No size cap, dedupe enabled, and no direct torrent fallback.',
+    maxResultsPerResolution: 10,
     maxSize: 0,
     cachedOnly: true,
     removeTrash: true,
@@ -20,6 +22,7 @@ const presets = {
     scrapeDebridAccountTorrents: true,
   },
   lowBandwidth: {
+    description: 'Keeps results lighter. Cached only, trash removed, dedupe enabled, and a 12 GB size cap to avoid giant remux-sized surprises.',
     maxResultsPerResolution: 5,
     maxSize: 12,
     cachedOnly: true,
@@ -29,12 +32,13 @@ const presets = {
     scrapeDebridAccountTorrents: true,
   },
   maximum: {
-    maxResultsPerResolution: 0,
+    description: 'More results without opening the floodgates. Cached only, trash removed, dedupe enabled, 10 results per resolution, and no size cap.',
+    maxResultsPerResolution: 10,
     maxSize: 0,
     cachedOnly: true,
-    removeTrash: false,
+    removeTrash: true,
     enableTorrent: false,
-    deduplicateStreams: false,
+    deduplicateStreams: true,
     scrapeDebridAccountTorrents: true,
   },
 };
@@ -102,6 +106,7 @@ function applyPreset(name) {
   document.getElementById('enableTorrent').checked = preset.enableTorrent;
   document.getElementById('dedupe').checked = preset.deduplicateStreams;
   document.getElementById('scrapeAccount').checked = preset.scrapeDebridAccountTorrents;
+  document.getElementById('presetDescription').textContent = preset.description;
   updateOutput();
 }
 

@@ -19,13 +19,13 @@ const presets={
 function neutralizePageCopy(){
   document.title='3HPM Nuvio Connected Services Wizard';
   const meta=document.querySelector('meta[name="description"]');
-  if(meta)meta.setAttribute('content','Generate clean, keyless scraper manifests for Nuvio Connected Services.');
+  if(meta)meta.setAttribute('content','Generate clean, keyless Comet and Torrentio scraper manifests for Nuvio Connected Services.');
   const heroEyebrow=document.querySelector('.hero .eyebrow');
-  if(heroEyebrow)heroEyebrow.textContent='Nuvio Connected Services · Scraper Manifest Builder';
+  if(heroEyebrow)heroEyebrow.textContent='Nuvio Connected Services · Comet + Torrentio Manifest Builder';
   const heroTitle=document.querySelector('.hero .display');
   if(heroTitle)heroTitle.innerHTML='The <em>scraper</em> manifest<br/>wizard for Nuvio.';
   const lede=document.querySelector('.hero .lede');
-  if(lede)lede.innerHTML='Generate a clean, keyless scraper manifest for Nuvio. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then build the addon URL. <strong>No TorBox API key</strong> goes into this wizard.';
+  if(lede)lede.innerHTML='Build a clean, keyless Comet or Torrentio manifest for Nuvio Connected Services. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then build the addon URL. <strong>No TorBox API key</strong> goes into this wizard.';
   const stepTwoTitle=document.querySelector('#step2 .stepTitle h2');
   if(stepTwoTitle)stepTwoTitle.textContent='Choose your scraper settings.';
   const instanceLabel=document.querySelector('label[for="instance"]');

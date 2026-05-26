@@ -4,7 +4,7 @@
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>3HPM Nuvio Connected Services Wizard</title>
-<meta name="description" content="Generate clean, keyless Comet scraper manifests for Nuvio Connected Services." />
+<meta name="description" content="Generate clean, keyless Comet and Torrentio scraper manifests for Nuvio Connected Services." />
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Fragment+Mono&display=swap" rel="stylesheet" />
@@ -41,12 +41,12 @@
 <main class="shell">
 
   <section class="hero">
-    <p class="eyebrow">Nuvio Connected Services · Comet Manifest Builder</p>
+    <p class="eyebrow">Nuvio Connected Services · Comet + Torrentio Manifest Builder</p>
     <h1 class="display">
-      The <em>Comet</em> manifest<br/>wizard for Nuvio.
+      The <em>scraper</em> manifest<br/>wizard for Nuvio.
     </h1>
     <p class="lede">
-      Generate a clean, keyless Comet scraper manifest for Nuvio. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then build the addon URL. <strong>No TorBox API key</strong> goes into this wizard.
+      Build a clean, keyless Comet or Torrentio manifest for Nuvio Connected Services. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then build the addon URL. <strong>No TorBox API key</strong> goes into this wizard.
     </p>
 
     <aside class="notice" role="note">
@@ -129,7 +129,7 @@
         <span class="stepNumber" aria-hidden="true">02</span>
         <div class="stepTitle">
           <p class="eyebrow">Scraper setup</p>
-          <h2>Choose your Comet settings.</h2>
+          <h2>Choose your scraper settings.</h2>
         </div>
       </header>
 
@@ -140,12 +140,13 @@
             <label for="addon">Scraper addon</label>
             <select id="addon" name="addon">
               <option value="comet" selected>Comet</option>
+              <option value="second">Torrentio</option>
             </select>
-            <small>Confirmed target for v1. Torrentio support after separate testing.</small>
+            <small>Choose Comet or Torrentio. Both generate keyless manifests for Nuvio Connected Services.</small>
           </div>
 
           <div class="field">
-            <label for="instance">Comet instance</label>
+            <label for="instance">Scraper instance</label>
             <select id="instance" name="instance">
               <option value="https://cometfortheweebs.midnightignite.me" selected>Midnightignite · tested</option>
               <option value="https://comet.feels.legal">Comet feels.legal</option>
@@ -194,7 +195,7 @@
           <div class="field two">
             <label for="maxResults">Max results / resolution</label>
             <input id="maxResults" name="maxResults" type="number" min="0" step="1" value="0" />
-            <small>10 is a strong tested value. 0 means unlimited. Comet handles final stream ranking.</small>
+            <small>10 is a strong tested value. 0 means unlimited. Comet uses this directly; Torrentio ignores this field.</small>
           </div>
           <div class="field two">
             <label for="maxSize">Max size <span class="unit">(GB)</span></label>
@@ -226,7 +227,7 @@
 
         <aside class="notice" role="note">
           <span class="stamp">Nuvio filters</span>
-          <p>The wizard controls what Comet sends to Nuvio. After installing, use Nuvio's own Connected Services settings for advanced filtering like result limits, sorting, qualities, visual tags, audio tags, channels, encodes, languages, release groups, and formatting.</p>
+          <p>The wizard controls what the selected scraper sends to Nuvio. After installing, use Nuvio's own Connected Services settings for advanced filtering like result limits, sorting, qualities, visual tags, audio tags, channels, encodes, languages, release groups, and formatting.</p>
         </aside>
 
         <div class="stepActions">
@@ -256,7 +257,7 @@
         <div class="manifestBox">
           <div class="manifestHeader">
             <span class="ribbon">Manifest · Ready</span>
-            <span class="meta-mono"><span class="dot-led"></span> Comet · TorBox · Instant</span>
+            <span class="meta-mono"><span class="dot-led"></span> Scraper · TorBox · Instant</span>
           </div>
           <label for="manifestUrl" class="srOnly">Manifest URL</label>
           <textarea id="manifestUrl" readonly rows="5" spellcheck="false" placeholder="Your manifest URL will appear here…"></textarea>
@@ -320,13 +321,13 @@
   </form>
 
   <footer class="pageFooter">
-    <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, or TorBox.</p>
+    <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, or TorBox.</p>
     <p class="signoff">Built with care by <span class="brand-mark">3 Hole Punch Media</span></p>
   </footer>
 
 </main>
 
-<script src="app.js"></script>
+<script src="app.js?v=20260525-1020"></script>
 
 <script>
 (function () {

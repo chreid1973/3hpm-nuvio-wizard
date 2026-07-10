@@ -3,30 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nuvio Stream Formatter Wizard</title>
+    <title>3HPM Nuvio Wizard</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Nuvio Formatter Layout Wizard</h1>
-            <p>Customize your baseline layout configurations easily</p>
-        </header>
-
-        <!-- Main Form Wrapper for app.js -->
-        <div id="wizard" class="wizard-container">
-            <!-- Dynamic elements load here via your app.js logic -->
-        </div>
-
-        <!-- Output Configuration Container -->
-        <div id="output-section" class="output-container" style="display:none;">
-            <h3>Your Configuration Payload</h3>
-            <textarea id="config-output" readonly></textarea>
+    <div id="wizard-container">
+        <h1>Nuvio Stream Formatter Wizard</h1>
+        <div id="wizard"></div>
+        <div id="output-section" style="display: none;">
+            <h2>Configuration Output</h2>
+            <textarea id="config-output" readonly rows="10" style="width: 100%; font-family: monospace;"></textarea>
             <button id="copy-btn">Copy to Clipboard</button>
         </div>
     </div>
-
-    <!-- Links right back to your intact root script -->
     <script src="app.js"></script>
 </body>
 </html>

@@ -69,56 +69,16 @@ const presets = {
   }
 };
 
-function injectMultiAddonStyles() {
-  if (document.getElementById('multiAddonStyles')) return;
-  const style = document.createElement('style');
-  style.id = 'multiAddonStyles';
-  style.textContent = `
-    .addonPicker{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:.7rem;margin-top:.35rem}
-    .addonChoice{display:flex;align-items:flex-start;gap:.7rem;border:1px solid rgba(22,22,22,.35);padding:.85rem;background:rgba(255,255,255,.55);cursor:pointer}
-    .addonChoice input{margin-top:.2rem;flex:0 0 auto}
-    .addonChoice strong{display:block;font-family:"Familjen Grotesk",sans-serif;font-size:1rem}
-    .addonChoice small{display:block;margin-top:.2rem;font-size:.78rem;line-height:1.35}
-    .addonChoice:has(input:checked){border-color:#ff3d1f;box-shadow:inset 0 0 0 1px #ff3d1f;background:#fff}
-    .addonPickerActions{display:flex;gap:.55rem;flex-wrap:wrap;margin-top:.75rem}
-    .addonSettingsNote{margin:.9rem 0 0;padding:.75rem .85rem;border-left:3px solid #ff3d1f;background:rgba(255,61,31,.06)}
-    .isHiddenForSelection{display:none!important}
-    .manifestList{display:grid;gap:1rem}
-    .manifestCard{border:1px solid rgba(255,255,255,.2);padding:1rem;background:rgba(255,255,255,.045)}
-    .manifestCardHeader{display:flex;justify-content:space-between;gap:1rem;align-items:flex-start;margin-bottom:.75rem}
-    .manifestCardHeader h3{margin:0;font-size:1.15rem;color:#fff}
-    .manifestCardHeader p{margin:.2rem 0 0;color:rgba(255,255,255,.68);font-size:.86rem}
-    .manifestCard textarea{width:100%;min-height:7rem;resize:vertical}
-    .manifestNameRow{display:grid;grid-template-columns:1fr auto;gap:.6rem;margin-top:.75rem}
-    .manifestNameRow input{min-width:0}
-    .manifestCardActions{display:flex;gap:.65rem;flex-wrap:wrap;margin-top:.75rem}
-    .copyAllRow{display:flex;justify-content:flex-end;margin-top:1rem}
-    .emptyManifests{padding:1rem;border:1px dashed rgba(255,255,255,.35);color:rgba(255,255,255,.8)}
-    .qrWrap.fullWidth{grid-column:1/-1;max-width:28rem}
-    @media(max-width:720px){.addonPicker{grid-template-columns:1fr}.manifestCardHeader{display:block}.manifestNameRow{grid-template-columns:1fr}.copyAllRow{justify-content:stretch}.copyAllRow .btn{width:100%}}
-  `;
-  document.head.appendChild(style);
-}
-
 function updatePageCopy() {
   document.title = '3HPM Nuvio Connected Services Wizard';
   const meta = document.querySelector('meta[name="description"]');
   if (meta) meta.setAttribute('content', 'Generate one or more keyless Comet, Torrentio, and StremThru Torz manifests for Nuvio Connected Services.');
 
-  const heroEyebrow = document.querySelector('.hero .eyebrow');
-  if (heroEyebrow) heroEyebrow.textContent = 'Nuvio Connected Services · Multi-Addon Manifest Builder';
+  const heroTitle = document.querySelector('header h1');
+  if (heroTitle) heroTitle.innerHTML = 'The <em>multi-addon</em> manifest wizard for Nuvio.';
 
-  const heroTitle = document.querySelector('.hero .display');
-  if (heroTitle) heroTitle.innerHTML = 'The <em>multi-addon</em> manifest<br/>wizard for Nuvio.';
-
-  const lede = document.querySelector('.hero .lede');
+  const lede = document.querySelector('header .lede');
   if (lede) lede.innerHTML = 'Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.';
-
-  const stepTwoTitle = document.querySelector('#step2 .stepTitle h2');
-  if (stepTwoTitle) stepTwoTitle.textContent = 'Choose your addons and settings.';
-
-  const stepThreeTitle = document.querySelector('#step3 .stepTitle h2');
-  if (stepThreeTitle) stepThreeTitle.textContent = 'Copy your manifest URLs.';
 
   const instanceLabel = document.querySelector('label[for="instance"]');
   if (instanceLabel) instanceLabel.textContent = 'Comet instance';
@@ -130,9 +90,6 @@ function updatePageCopy() {
   if (nuvioFilterStamp?.nextElementSibling) {
     nuvioFilterStamp.nextElementSibling.textContent = 'The wizard controls what Comet and Torrentio send to Nuvio. StremThru Torz uses its fixed tested manifest. After installing, use Nuvio’s Connected Services settings for final sorting, quality filtering, formatting, and cleanup.';
   }
-
-  const disclaimer = document.querySelector('.pageFooter .disclaimer');
-  if (disclaimer) disclaimer.textContent = 'An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, StremThru, or TorBox.';
 }
 
 function removeBrokenCometInstance() {
@@ -162,8 +119,8 @@ function replaceAddonSelector() {
       </label>
     </div>
     <div class="addonPickerActions">
-      <button id="selectAllAddons" type="button" class="smallBtn ghostBtn btn ghost small">Select all addons</button>
-      <button id="clearAddons" type="button" class="smallBtn ghostBtn btn ghost small">Clear selection</button>
+      <button id="selectAllAddons" type="button" class="smallBtn">Select all addons</button>
+      <button id="clearAddons" type="button" class="smallBtn">Clear selection</button>
     </div>
     <p id="addonSettingsNote" class="addonSettingsNote"></p>
   `;
@@ -194,7 +151,7 @@ function prepareOutputArea() {
     manifestBox.innerHTML = `
       <div class="manifestHeader">
         <span class="ribbon">Manifests · Ready</span>
-        <span class="meta-mono"><span class="dot-led"></span> Selected addons · TorBox · Instant</span>
+        <span>Selected addons · TorBox · Instant</span>
       </div>
       <div id="manifestList" class="manifestList"></div>
       <div class="copyAllRow">
@@ -421,15 +378,15 @@ function renderManifestList() {
         </div>
         <span class="ribbon">Ready</span>
       </div>
-      <label class="srOnly" for="manifest-${manifest.id}">${escapeHtml(manifest.label)} manifest URL</label>
-      <textarea id="manifest-${manifest.id}" readonly rows="5" spellcheck="false">${escapeHtml(manifest.url)}</textarea>
+      <label class="srOnly" for="manifest-${manifest.id}" style="display:none;">${escapeHtml(manifest.label)} manifest URL</label>
+      <textarea id="manifest-${manifest.id}" readonly rows="3" spellcheck="false">${escapeHtml(manifest.url)}</textarea>
       <div class="manifestNameRow">
         <input id="name-${manifest.id}" readonly value="${escapeHtml(manifest.name)}" aria-label="Suggested addon name for ${escapeHtml(manifest.label)}" />
-        <button type="button" class="smallBtn btn ghost small" data-copy-name="${manifest.id}">Copy name</button>
+        <button type="button" class="smallBtn" data-copy-name="${manifest.id}">Copy name</button>
       </div>
       <div class="manifestCardActions">
-        <button type="button" class="btn primary" data-copy-url="${manifest.id}">Copy Manifest URL</button>
-        <a class="button ghost btn ghost onDark" href="${escapeHtml(manifest.url)}" target="_blank" rel="noopener">Open Manifest <span class="arrow ext" aria-hidden="true">↗</span></a>
+        <button type="button" class="btn primary" data-copy-url="${manifest.id}">Copy URL</button>
+        <a class="btn ghost" href="${escapeHtml(manifest.url)}" target="_blank" rel="noopener">Open Manifest ↗</a>
       </div>
     </article>
   `).join('');
@@ -539,7 +496,6 @@ function bindEvents() {
   });
 }
 
-injectMultiAddonStyles();
 updatePageCopy();
 removeBrokenCometInstance();
 replaceAddonSelector();

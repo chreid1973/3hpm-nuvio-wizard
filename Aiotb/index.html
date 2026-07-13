@@ -16,37 +16,59 @@
             <h1 id="page-title">AIOStreams TB Instant Quick Start</h1>
             <p class="lead">Download the template, choose a public AIOStreams instance, and follow the install guide if you need screenshots. Built for Nuvio Instant/TB Instant style setups.</p>
             
-            <div style="margin-top:22px; padding:16px; border-radius:16px; background:rgba(34,197,94,.12); border:1px solid rgba(34,197,94,.35); font-size:15px;">
+            <div style="margin-top:22px; padding:16px; border-radius:12px; background:var(--green-dim); border:1px solid rgba(34,197,94,0.3); font-size:14px; line-height:1.5;">
                 <strong>First time using AIOStreams?</strong><br/>
-                Read the <a href="https://3hpm.ca/aiotb/install" style="font-weight:bold;">2-minute Installation Guide</a> before downloading the template.
+                Read the <a href="https://3hpm.ca/aiotb/install" style="color:var(--green); font-weight:bold;">2-minute Installation Guide</a> before downloading the template. It includes screenshots for every step.
             </div>
         </header>
 
         <main>
             <section class="panel setup-step">
-                <div class="step-label">Step 1</div>
-                <h2>Download the Template</h2>
-                <a class="download" download="" href="aio-with-nuvio-instant-template.json">Download Template JSON</a>
-                <p>Download the preconfigured template to your device. You'll import this file in the next step.</p>
-                <code>https://nuvioinstant.3hpm.ca/Aiotb/aio-with-nuvio-instant-template.json</code>
-            </section>
-
-            <section class="panel setup-step">
-                <div class="step-label">Step 2</div>
-                <h2>Choose an Instance</h2>
-                <p>Open one of these public configure nodes to drop your template setup file:</p>
-                <div class="instance-list" style="display:flex; flex-direction:column; gap:10px;">
-                    <a class="download" href="https://aiostreams.12312023.xyz/stremio/configure" rel="noopener noreferrer" target="_blank" style="margin:0; min-height:48px;">12312023</a>
-                    <a class="download" href="https://aiostreams.fortheweak.cloud/stremio/configure" rel="noopener noreferrer" target="_blank" style="margin:0; min-height:48px;">ForTheWeak</a>
+                <div>
+                    <div class="step-label">Step 1</div>
+                    <h2>Download Template</h2>
+                    <p>Download the preconfigured AIOStreams template to your device. You'll import this JSON file into AIOStreams in the next step.</p>
                 </div>
-                <p style="font-size:13px; margin-top:10px;"><em>Important: do not deploy using an ElfHosted engine layout with this specific configuration blueprint.</em></p>
+                <div>
+                    <a class="download" download="" href="aio-with-nuvio-instant-template.json">Download Template JSON</a>
+                    <code>https://nuvioinstant.3hpm.ca/Aiotb/aio-with-nuvio-instant-template.json</code>
+                </div>
             </section>
 
             <section class="panel setup-step">
-                <div class="step-label">Step 3</div>
-                <h2>Need Help?</h2>
-                <a class="download" href="https://nuvioinstant.3hpm.ca/Aiotb/install" rel="noopener noreferrer" style="background:#334155; color:#e5e7eb; box-shadow:none;" target="_blank">View Install Documentation</a>
-                <p>The screenshot guide walks you through importing config JSON structures safely without clearing active credential parameters.</p>
+                <div>
+                    <div class="step-label">Step 2</div>
+                    <h2>Choose an Instance</h2>
+                    <p>Open one of these public configure nodes to drop your template setup file:</p>
+                    <div class="instance-list">
+                        <div class="instance-card">
+                            <a class="download" href="https://aiostreams.12312023.xyz/stremio/configure" rel="noopener noreferrer" target="_blank">12312023</a>
+                            <p>Public Instance</p>
+                        </div>
+                        <div class="instance-card">
+                            <a class="download" href="https://aiostreams.fortheweak.cloud/stremio/configure" rel="noopener noreferrer" target="_blank">ForTheWeak</a>
+                            <p>Public Instance</p>
+                        </div>
+                        <div class="instance-card">
+                            <a class="download" href="https://aiostreamsfortheweebsstable.midnightignite.me/stremio/configure" rel="noopener noreferrer" target="_blank">ForTheWeebs Stable</a>
+                            <p>Public Instance</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="warning-note">
+                    <strong>Important:</strong> Do not use an ElfHosted AIOStreams instance for this template. It will fail under Nuvio layouts.
+                </div>
+            </section>
+
+            <section class="panel setup-step">
+                <div>
+                    <div class="step-label">Step 3</div>
+                    <h2>Need Assistance?</h2>
+                    <p>The screenshot documentation guide walks you through importing config JSON structures safely without clearing active credentials.</p>
+                </div>
+                <div>
+                    <a class="download" href="https://nuvioinstant.3hpm.ca/Aiotb/install" rel="noopener noreferrer" style="background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text);" target="_blank">View Install Guide</a>
+                </div>
             </section>
         </main>
 
@@ -58,184 +80,7 @@
 
 </body>
 </html>
-      color: var(--text);
-      display: grid;
-      place-items: center;
-      padding: 32px 16px;
-    }
-
-    .wrap {
-      width: min(940px, 100%);
-    }
-
-    .card {
-      border: 1px solid var(--border);
-      background: var(--panel);
-      border-radius: 28px;
-      overflow: hidden;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, 0.42);
-      backdrop-filter: blur(12px);
-    }
-
-    header {
-      padding: 42px 34px 24px;
-      border-bottom: 1px solid var(--border);
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.13), rgba(15, 23, 42, 0));
-    }
-
-    .tag {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      color: var(--green-2);
-      border: 1px solid rgba(34, 197, 94, 0.34);
-      background: rgba(34, 197, 94, 0.08);
-      padding: 8px 12px;
-      border-radius: 999px;
-      font-size: 14px;
-      font-weight: 700;
-      letter-spacing: 0.02em;
-    }
-
-    h1 {
-      margin: 22px 0 12px;
-      font-size: clamp(34px, 7vw, 64px);
-      line-height: 0.96;
-      letter-spacing: -0.06em;
-    }
-
-    .lead {
-      max-width: 720px;
-      margin: 0;
-      color: var(--muted);
-      font-size: clamp(18px, 2.5vw, 22px);
-      line-height: 1.5;
-    }
-
-    main {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 18px;
-      padding: 24px;
-    }
-
-    .panel {
-      border: 1px solid var(--border);
-      background: var(--panel-2);
-      border-radius: 22px;
-      padding: 24px;
-    }
-
-    .download {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 100%;
-      min-height: 64px;
-      margin: 8px 0 18px;
-      border-radius: 18px;
-      background: var(--green);
-      color: #04130a;
-      text-decoration: none;
-      font-weight: 900;
-      font-size: 18px;
-      box-shadow: 0 16px 36px var(--shadow);
-      transition: transform 160ms ease, filter 160ms ease;
-    }
-
-    .download:hover,
-    .download:focus {
-      transform: translateY(-2px);
-      filter: brightness(1.08);
-    }
-
-    h2 {
-      margin: 0 0 14px;
-      font-size: 22px;
-      letter-spacing: -0.02em;
-    }
-
-    p {
-      color: var(--muted);
-      line-height: 1.6;
-      margin: 0 0 16px;
-    }
-
-    code {
-      display: block;
-      padding: 14px 16px;
-      border-radius: 14px;
-      border: 1px solid var(--border);
-      background: rgba(2, 6, 23, 0.7);
-      color: var(--green-2);
-      overflow-wrap: anywhere;
-      line-height: 1.5;
-    }
-
-    .mini {
-      font-size: 14px;
-    }
-
-    .steps p {
-      padding-left: 16px;
-      border-left: 3px solid rgba(34, 197, 94, 0.52);
-    }
-
-    footer {
-      padding: 0 34px 32px;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: center;
-    }
-
-    @media (max-width: 760px) {
-      main { grid-template-columns: 1fr; padding: 16px; }
-      header { padding: 32px 24px 22px; }
-      footer { padding: 0 20px 24px; }
-    }
-  
-    .setup-step {
-      position: relative;
-    }
-
-    .step-label {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-width: 84px;
-      margin-bottom: 14px;
-      padding: 7px 11px;
-      border-radius: 999px;
-      background: rgba(34, 197, 94, 0.10);
-      border: 1px solid rgba(34, 197, 94, 0.34);
-      color: var(--green-2);
-      font-size: 13px;
-      font-weight: 900;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-    }
-
-    .instance-card {
-      margin: 14px 0;
-    }
-
-    .instance-card p {
-      margin: 8px 6px 0;
-      color: var(--muted);
-      font-size: 14px;
-      text-align: center;
-    }
-</style>
-</head>
-<body>
-<div class="wrap">
-<section aria-labelledby="page-title" class="card">
-<header>
-<span class="tag">3HPM Template Drop</span>
-<h1 id="page-title">AIOStreams TB Instant Quick Start</h1>
-<p class="lead">Download the template, choose a public AIOStreams instance, and follow the install guide if you need screenshots. Built for Nuvio Instant/TB Instant style setups.</p><div style="margin-top:22px;padding:16px 18px;border-radius:16px;background:rgba(34,197,94,.12);border:1px solid rgba(34,197,94,.35);"><strong>First time using AIOStreams?</strong><br/>Read the <a href="https://3hpm.ca/aiotb/install" style="color:#86efac;font-weight:bold;text-decoration:none;">2-minute Installation Guide</a> before downloading the template. It includes screenshots for every step and shows where to import the template, when to press Skip, and when to enter your TMDB credentials.</div>
-</header>
-<main><section class="panel setup-step"><div class="step-label">Step 1</div><h2>Download the Template</h2><a class="download" download="" href="aio-with-nuvio-instant-template.json">Download AIOStreams Template</a><p>Download the preconfigured AIOStreams template to your device. You'll import this JSON file into AIOStreams in the next step.</p><code>https://nuvioinstant.3hpm.ca/Aiotb/aio-with-nuvio-instant-template.json</code></section><section class="panel setup-step"><div class="step-label">Step 2</div><h2>Choose an AIOStreams Instance</h2><p>Open one of these public AIOStreams configure pages, then import the template file you downloaded in Step 1.</p><div class="instance-list"><div class="instance-card"><a class="download" href="https://aiostreams.12312023.xyz/stremio/configure" rel="noopener noreferrer" style="margin:0;" target="_blank">12312023</a><p>Public AIOStreams instance</p></div><div class="instance-card"><a class="download" href="https://aiostreams.fortheweak.cloud/stremio/configure" rel="noopener noreferrer" style="margin:0;" target="_blank">ForTheWeak</a><p>Public AIOStreams instance</p></div><div class="instance-card"><a class="download" href="https://aiostreamsfortheweebsstable.midnightignite.me/stremio/configure" rel="noopener noreferrer" style="margin:0;" target="_blank">ForTheWeebs Stable</a><p>Public AIOStreams instance</p></div></div><p class="mini">These are community-maintained public instances. If one is unavailable or busy, simply try another.</p><div class="warning-note">Important: do not use an ElfHosted AIOStreams instance for this template. It will not work correctly with the Nuvio Instant setup.</div></section><section class="panel setup-step"><div class="step-label">Step 3</div><h2>Need Help?</h2><a class="download" href="https://nuvioinstant.3hpm.ca/Aiotb/install" rel="noopener noreferrer" style="background:#334155;color:#e5e7eb;box-shadow:none;" target="_blank">View Installation Guide</a><p>The guide includes screenshots showing how to import the template, press Skip on the services screen, enter TMDB credentials, and finish the AIOStreams configuration.</p></section></main>
+en, enter TMDB credentials, and finish the AIOStreams configuration.</p></section></main>
 <footer>
         Made by 3HPM. Useful nerd stuff, minus the fifteen-page ritual sacrifice to the settings menu.
       </footer>

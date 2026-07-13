@@ -1,28 +1,4 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>3HPM Nuvio Connected Services Wizard</title>
-<meta name="description" content="Generate one or more keyless Comet, Torrentio, and StremThru Torz manifests for Nuvio Connected Services." />
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Familjen+Grotesk:wght@400;500;600;700&family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,600;1,9..144,300;1,9..144,400;1,9..144,500&family=Fragment+Mono&display=swap" rel="stylesheet" />
-<link rel="stylesheet" href="style.css" />
-<style>
-.releaseBanner{position:sticky;top:0;z-index:50;overflow:hidden;background:#161616;color:#fbf8ef;border-bottom:3px solid #ff3d1f;font-family:"Fragment Mono",ui-monospace,Menlo,monospace;font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;white-space:nowrap}
-.releaseBannerTrack{display:inline-flex;gap:2rem;min-width:max-content;padding:.65rem 0;animation:releaseBannerScroll 34s linear infinite}
-.releaseBannerTrack span{display:inline-block;padding-left:2rem}.releaseBanner strong{color:#ff3d1f}
-@keyframes releaseBannerScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion:reduce){.releaseBannerTrack{animation:none;white-space:normal;display:block;padding:.65rem 1rem}.releaseBannerTrack span{padding-left:0;display:block}}
-.manifestCard textarea,.manifestNameRow input{background:#fbf8ef!important;color:#161616!important;-webkit-text-fill-color:#161616!important;opacity:1!important}
-</style>
-</head>
-<body>
-<div class="releaseBanner" role="note" aria-label="Important Nuvio version notice"><div class="releaseBannerTrack"><span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span><span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span></div></div>
-<header class="topbar"><div class="brand" aria-label="3 Hole Punch Media"><span class="punches" aria-hidden="true"><i></i><i></i><i></i></span><span class="wordmark">3 Hole Punch Media</span></div><div class="fileMark" aria-hidden="true"><span class="label">FILE</span><span class="num">№ 001 · NUVIO · V1</span></div></header>
-<main class="shell">
-<section class="hero"><p class="eyebrow">Nuvio Connected Services · Multi-Addon Manifest Builder</p><h1 class="display">The <em>multi-addon</em> manifest<br/>wizard for Nuvio.</h1><p class="lede">Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.</p><aside class="notice" role="note"><span class="stamp">Read me</span><p><strong>Nuvio Connected Services only.</strong> This tool builds scraper manifests. TorBox authentication stays inside Nuvio.</p></aside></section>
+-Addon Manifest Builder</p><h1 class="display">The <em>multi-addon</em> manifest<br/>wizard for Nuvio.</h1><p class="lede">Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.</p><aside class="notice" role="note"><span class="stamp">Read me</span><p><strong>Nuvio Connected Services only.</strong> This tool builds scraper manifests. TorBox authentication stays inside Nuvio.</p></aside></section>
 <nav class="progress" aria-label="Wizard progress"><ol><li data-target="step1" class="is-active"><span class="dot"><i class="hole"></i></span><span class="meta"><span class="num">01</span><span class="title">Nuvio&nbsp;setup</span></span></li><li data-target="step2"><span class="dot"><i class="hole"></i></span><span class="meta"><span class="num">02</span><span class="title">Scraper&nbsp;setup</span></span></li><li data-target="step3"><span class="dot"><i class="hole"></i></span><span class="meta"><span class="num">03</span><span class="title">Install</span></span></li></ol></nav>
 <form id="wizardForm" class="wizardFlow">
 <section class="stepCard active" id="step1"><header class="stepHeader"><span class="stepNumber" aria-hidden="true">01</span><div class="stepTitle"><p class="eyebrow">Nuvio setup</p><h2>Connect TorBox first.</h2></div></header><div class="stepBody"><p class="stepIntro">Do this inside Nuvio <em>before</em> generating the manifests. This is the part people miss.</p><div class="setupChecklist"><label><input type="checkbox" id="confirmTorbox" /><span>TorBox is connected in Nuvio under <b>Settings → Integrations → Connected Services → TorBox</b>.</span></label><label><input type="checkbox" id="confirmResolve" /><span><b>Resolve playable links</b> is toggled on in Connected Services.</span></label><label><input type="checkbox" id="confirmNoApi" /><span>I understand this wizard <b>does not need</b> my TorBox API key.</span></label></div><aside class="notice" role="note"><span class="stamp">Note</span><p>Nuvio labels Connected Services as experimental. Settings may change, move, or be removed in future Nuvio releases.</p></aside><div class="setupChecklist" style="margin-top:20px; display:none;"><label><input type="checkbox" id="confirmTemplate" checked /><span>Using Standard Layout Stream Configuration Profiles</span></label></div><div class="stepActions"><button type="button" class="btn primary nextStep" data-next="step2">Continue to scraper setup <span class="arrow" aria-hidden="true">→</span></button></div></div></section>
@@ -37,5 +13,66 @@
 </main>
 <script src="app.js?v=20260701-multi-addon-contrast"></script>
 <script>(function(){var steps=['step1','step2','step3'];var liEls=document.querySelectorAll('.progress li');if(!liEls.length)return;function update(){var activeIndex=0;steps.forEach(function(id,i){var el=document.getElementById(id);if(el&&el.classList.contains('active'))activeIndex=i});liEls.forEach(function(li,i){li.classList.remove('is-active','is-done');if(i<activeIndex)li.classList.add('is-done');else if(i===activeIndex)li.classList.add('is-active')})}update();steps.forEach(function(id){var el=document.getElementById(id);if(el)new MutationObserver(update).observe(el,{attributes:true,attributeFilter:['class']})})})();</script>
+</body>
+</html>
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3HPM Nuvio Connected Services Wizard</title>
+    <meta name="description" content="Generate one or more keyless Comet, Torrentio, and StremThru Torz manifests for Nuvio Connected Services." />
+    <link rel="stylesheet" href="global.css" />
+</head>
+<body>
+
+<div class="releaseBanner" role="note" aria-label="Important Nuvio version notice">
+    <div class="releaseBannerTrack">
+        <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+        <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+    </div>
+</div>
+
+<div class="shell" style="margin-top: 24px;">
+    <div class="card">
+        <header>
+            <span class="tag">№ 001 · NUVIO · V1</span>
+            <h1 class="display">The <em>multi-addon</em> manifest wizard for Nuvio.</h1>
+            <p class="lede">Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.</p>
+        </header>
+
+        <form id="wizardForm" class="wizardFlow">
+            <main style="display: block;">
+                <section class="stepCard active" id="step1">
+                    <h2>01. Nuvio Setup Check</h2>
+                    <p>Do this inside Nuvio <em>before</em> generating the manifests. This is the part people miss.</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px; margin: 20px 0;">
+                        <label><input type="checkbox" id="confirmTorbox" /> <span>TorBox is connected in Nuvio under <b>Settings → Integrations → Connected Services → TorBox</b>.</span></label>
+                        <label><input type="checkbox" id="confirmResolve" /> <span><b>Resolve playable links</b> is toggled on in Connected Services.</span></label>
+                        <label><input type="checkbox" id="confirmNoApi" /> <span>I understand this wizard <b>does not need</b> my TorBox API key.</span></label>
+                    </div>
+                    <button type="button" class="btn primary nextStep" data-next="step2">Continue to scraper setup →</button>
+                </section>
+
+                <section class="stepCard collapsed" id="step2" style="display:none;">
+                    <h2>02. Choose Scraper Settings</h2>
+                    <button type="button" class="btn primary nextStep" data-next="step3">Generate manifests →</button>
+                </section>
+
+                <section class="stepCard collapsed" id="step3" style="display:none;">
+                    <h2>03. Copy Manifest URLs</h2>
+                    <div id="manifestList"></div>
+                </section>
+            </main>
+        </form>
+
+        <footer class="pageFooter">
+            <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, StremThru, or TorBox.</p>
+            <p class="signoff">Built with care by <span>3 Hole Punch Media</span></p>
+        </footer>
+    </div>
+</div>
+
+<script src="app.js?v=20260701-multi-addon-contrast"></script>
 </body>
 </html>

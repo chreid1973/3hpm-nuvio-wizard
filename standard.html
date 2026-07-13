@@ -1,82 +1,238 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-    <meta charset="utf-8"/>
-    <meta content="width=device-width, initial-scale=1" name="viewport"/>
-    <title>AIOStreams TB Instant Template | 3HPM</title>
-    <meta content="Download the 3HPM AIOStreams template for use with Nuvio Instant and TB Instant." name="description"/>
-    <link rel="stylesheet" href="../global.css" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>3HPM Nuvio Connected Services Wizard</title>
+    <meta name="description" content="Generate one or more keyless Comet, Torrentio, and StremThru Torz manifests for Nuvio Connected Services." />
+    <link rel="stylesheet" href="global.css" />
 </head>
 <body>
 
-<div class="wrap">
-    <section aria-labelledby="page-title" class="card">
-        <header>
-            <span class="tag">3HPM Template Drop</span>
-            <h1 id="page-title">AIOStreams TB Instant Quick Start</h1>
-            <p class="lead">Download the template, choose a public AIOStreams instance, and follow the install guide if you need screenshots. Built for Nuvio Instant/TB Instant style setups.</p>
-            
-            <div style="margin-top:22px; padding:16px; border-radius:12px; background:var(--green-dim); border:1px solid rgba(34,197,94,0.3); font-size:14px; line-height:1.5;">
-                <strong>First time using AIOStreams?</strong><br/>
-                Read the <a href="https://3hpm.ca/aiotb/install" style="color:var(--green); font-weight:bold;">2-minute Installation Guide</a> before downloading the template. It includes screenshots for every step.
-            </div>
-        </header>
-
-        <main>
-            <section class="panel setup-step">
-                <div>
-                    <div class="step-label">Step 1</div>
-                    <h2>Download Template</h2>
-                    <p>Download the preconfigured AIOStreams template to your device. You'll import this JSON file into AIOStreams in the next step.</p>
-                </div>
-                <div>
-                    <a class="download" download="" href="aio-with-nuvio-instant-template.json">Download Template JSON</a>
-                    <code>https://nuvioinstant.3hpm.ca/Aiotb/aio-with-nuvio-instant-template.json</code>
-                </div>
-            </section>
-
-            <section class="panel setup-step">
-                <div>
-                    <div class="step-label">Step 2</div>
-                    <h2>Choose an Instance</h2>
-                    <p>Open one of these public configure nodes to drop your template setup file:</p>
-                    <div class="instance-list">
-                        <div class="instance-card">
-                            <a class="download" href="https://aiostreams.12312023.xyz/stremio/configure" rel="noopener noreferrer" target="_blank">12312023</a>
-                            <p>Public Instance</p>
-                        </div>
-                        <div class="instance-card">
-                            <a class="download" href="https://aiostreams.fortheweak.cloud/stremio/configure" rel="noopener noreferrer" target="_blank">ForTheWeak</a>
-                            <p>Public Instance</p>
-                        </div>
-                        <div class="instance-card">
-                            <a class="download" href="https://aiostreamsfortheweebsstable.midnightignite.me/stremio/configure" rel="noopener noreferrer" target="_blank">ForTheWeebs Stable</a>
-                            <p>Public Instance</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="warning-note">
-                    <strong>Important:</strong> Do not use an ElfHosted AIOStreams instance for this template. It will fail under Nuvio layouts.
-                </div>
-            </section>
-
-            <section class="panel setup-step">
-                <div>
-                    <div class="step-label">Step 3</div>
-                    <h2>Need Assistance?</h2>
-                    <p>The screenshot documentation guide walks you through importing config JSON structures safely without clearing active credentials.</p>
-                </div>
-                <div>
-                    <a class="download" href="https://nuvioinstant.3hpm.ca/Aiotb/install" rel="noopener noreferrer" style="background:rgba(255,255,255,0.05); border:1px solid var(--border); color:var(--text);" target="_blank">View Install Guide</a>
-                </div>
-            </section>
-        </main>
-
-        <footer>
-            Made by 3HPM. Useful nerd stuff, minus the fifteen-page ritual sacrifice to the settings menu.
-        </footer>
-    </section>
+<div class="releaseBanner" role="note" aria-label="Important Nuvio version notice">
+    <div class="releaseBannerTrack">
+        <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+        <span><strong>Important:</strong> Use the GitHub version of Nuvio. It includes the required settings. The Play Store version has limitations and removed features to stay Play Store compliant. Downloader code for the Full Universal Release APK: <strong>9919325</strong>.</span>
+    </div>
 </div>
 
+<div class="shell" style="margin-top: 24px; padding: 0 8px;">
+    <div class="card">
+        <header>
+            <span class="tag">№ 001 · NUVIO · V1</span>
+            <h1>The <em>multi-addon</em> manifest wizard for Nuvio.</h1>
+            <p class="lede">Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.</p>
+            <aside class="notice" role="note">
+                <span class="stamp">Read me</span>
+                <p><strong>Nuvio Connected Services only.</strong> This tool builds scraper manifests. TorBox authentication stays inside Nuvio.</p>
+            </aside>
+        </header>
+
+        <nav class="progress" aria-label="Wizard progress">
+            <ol>
+                <li data-target="step1" class="is-active"><span class="num">01</span><span class="title">Nuvio setup</span></li>
+                <li data-target="step2"><span class="num">02</span><span class="title">Scraper setup</span></li>
+                <li data-target="step3"><span class="num">03</span><span class="title">Install</span></li>
+            </ol>
+        </nav>
+
+        <form id="wizardForm" class="wizardFlow" style="padding: 0 24px 24px;">
+            
+            <!-- STEP 1: NUVIO SETUP -->
+            <section class="stepCard active" id="step1">
+                <header class="stepHeader">
+                    <span class="stepNumber">01</span>
+                    <div><h2>Connect TorBox first.</h2></div>
+                </header>
+                <div class="stepBody">
+                    <p>Do this inside Nuvio <em>before</em> generating the manifests. This is the part people miss.</p>
+                    <div class="setupChecklist">
+                        <label><input type="checkbox" id="confirmTorbox" /><span>TorBox is connected in Nuvio under <b>Settings → Integrations → Connected Services → TorBox</b>.</span></label>
+                        <label><input type="checkbox" id="confirmResolve" /><span><b>Resolve playable links</b> is toggled on in Connected Services.</span></label>
+                        <label><input type="checkbox" id="confirmNoApi" /><span>I understand this wizard <b>does not need</b> my TorBox API key.</span></label>
+                    </div>
+                    <aside class="notice" role="note">
+                        <span class="stamp">Note</span>
+                        <p>Nuvio labels Connected Services as experimental. Settings may change, move, or be removed in future Nuvio releases.</p>
+                    </aside>
+                    <div class="stepActions">
+                        <button type="button" class="btn primary nextStep" data-next="step2">Continue to scraper setup →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 2: SCRAPER SETUP -->
+            <section class="stepCard collapsed" id="step2">
+                <header class="stepHeader">
+                    <span class="stepNumber">02</span>
+                    <div><h2>Choose your addons and settings.</h2></div>
+                </header>
+                <div class="stepBody">
+                    <div class="fieldGroup">
+                        <div class="field">
+                            <label for="addon">Scraper addons</label>
+                            <select id="addon" name="addon">
+                                <option value="comet" selected>Comet</option>
+                                <option value="torrentio">Torrentio</option>
+                                <option value="stremthru">StremThru Torz</option>
+                            </select>
+                            <small>Select one or more addons.</small>
+                        </div>
+                        <div class="field">
+                            <label for="instance">Comet instance</label>
+                            <select id="instance" name="instance">
+                                <option value="https://cometfortheweebs.midnightignite.me" selected>Midnightignite · tested</option>
+                                <option value="https://comet.feels.legal">Comet feels.legal</option>
+                                <option value="https://cometa.stremx.net">Cometa StremX</option>
+                                <option value="https://comet.stremio.ru">Comet stremio.ru</option>
+                            </select>
+                            <small id="instanceDescription">Default uses the Midnightignite instance you tested successfully in Nuvio.</small>
+                        </div>
+                        <div class="field">
+                            <label for="preset">Preset</label>
+                            <select id="preset" name="preset">
+                                <option value="beginner" selected>Beginner Safe</option>
+                                <option value="quality">Best Quality</option>
+                                <option value="lowBandwidth">Low Bandwidth</option>
+                                <option value="maximum">Maximum Results</option>
+                            </select>
+                            <p class="presetDescription" id="presetDescription" style="font-size: 13px; margin-top: 4px;"></p>
+                        </div>
+                        <div class="field">
+                            <label for="language">Language preference</label>
+                            <select id="language" name="language">
+                                <option value="any" selected>Any language (recommended)</option>
+                                <option value="en">English Only</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <fieldset class="checks resolutions">
+                        <legend>Resolutions to scrape</legend>
+                        <p class="helperText">Leave all checked for the broadest results, or uncheck lower qualities.</p>
+                        <div class="resolutionGrid">
+                            <label><input class="resolutionOption" type="checkbox" value="r2160p" checked /><span>4K UHD<small>2160p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r1440p" checked /><span>QHD<small>1440p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r1080p" checked /><span>FHD<small>1080p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r720p" checked /><span>HD<small>720p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r576p" checked /><span>SD<small>576p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r480p" checked /><span>SD<small>480p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r360p" checked /><span>LD<small>360p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="r240p" checked /><span>LD<small>240p</small></span></label>
+                            <label><input class="resolutionOption" type="checkbox" value="unknown" checked /><span>Unknown<small>—</small></span></label>
+                        </div>
+                        <div class="miniActions">
+                            <button id="selectAllResolutions" type="button" class="smallBtn">Select all</button>
+                            <button id="qualityResolutions" type="button" class="smallBtn">4K · 1440p · 1080p</button>
+                        </div>
+                    </fieldset>
+
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 20px;">
+                        <div class="field">
+                            <label for="maxResults">Max results / res</label>
+                            <input id="maxResults" name="maxResults" type="number" min="0" step="1" value="0" />
+                        </div>
+                        <div class="field">
+                            <label for="maxSize">Max size (GB)</label>
+                            <input id="maxSize" name="maxSize" type="number" min="0" step="0.5" value="0" />
+                        </div>
+                    </div>
+
+                    <fieldset class="checks options">
+                        <legend>Nuvio-safe options</legend>
+                        <div class="optionsGrid">
+                            <label><input id="cachedOnly" type="checkbox" checked /><span>Cached only</span></label>
+                            <label><input id="removeTrash" type="checkbox" checked /><span>Remove trash</span></label>
+                            <label><input id="dedupe" type="checkbox" checked /><span>Deduplicate</span></label>
+                            <label><input id="scrapeAccount" type="checkbox" checked /><span>Scrape account</span></label>
+                        </div>
+                    </fieldset>
+
+                    <details class="advanced">
+                        <summary>Advanced — torrent fallback</summary>
+                        <div class="advancedBody">
+                            <label style="display:flex; gap:10px; align-items:center;">
+                                <input id="enableTorrent" type="checkbox" style="width:18px; height:18px; accent-color:var(--green);" />
+                                <span>Enable torrent fallback</span>
+                            </label>
+                        </div>
+                    </details>
+
+                    <div class="stepActions">
+                        <button type="button" class="btn ghost backStep" data-prev="step1">← Back</button>
+                        <button type="button" class="btn primary nextStep" data-next="step3">Generate manifests →</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- STEP 3: INSTALLATION DETAILS -->
+            <section class="stepCard collapsed" id="step3">
+                <header class="stepHeader">
+                    <span class="stepNumber">03</span>
+                    <div><h2>Copy your manifest URLs.</h2></div>
+                </header>
+                <div class="stepBody output">
+                    <div class="manifestBox">
+                        <div class="manifestHeader">
+                            <span>Manifests · Ready</span>
+                            <span>TorBox · Instant</span>
+                        </div>
+                        <div id="manifestList"></div>
+                    </div>
+                    
+                    <div class="installGrid">
+                        <div class="qrWrap">
+                            <p style="font-size: 14px; font-weight: bold; margin-bottom: 8px;">Scan to open Nuvio Addons</p>
+                            <div class="qrFrame"><img id="qrCode" alt="QR code for Nuvio addons page" /></div>
+                        </div>
+                    </div>
+
+                    <div class="finalSteps">
+                        <h3>Finish in Nuvio</h3>
+                        <ol>
+                            <li><span class="num">1</span><span>Add each generated manifest URL to Nuvio.</span></li>
+                            <li><span class="num">2</span><span>Enable each new addon.</span></li>
+                        </ol>
+                    </div>
+                    <div class="stepActions" style="margin-top:24px;">
+                        <button type="button" class="btn ghost backStep" data-prev="step2">← Back to settings</button>
+                    </div>
+                </div>
+            </section>
+        </form>
+
+        <footer class="pageFooter">
+            <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, StremThru, or TorBox.</p>
+            <p class="signoff">Built with care by <span>3 Hole Punch Media</span></p>
+        </footer>
+    </div>
+</div>
+
+<script src="app.js?v=20260701-multi-addon-contrast"></script>
+<script>
+    (function(){
+        var steps = ['step1', 'step2', 'step3'];
+        var liEls = document.querySelectorAll('.progress li');
+        if(!liEls.length) return;
+        function update(){
+            var activeIndex = 0;
+            steps.forEach(function(id, i){
+                var el = document.getElementById(id);
+                if(el && el.classList.contains('active')) activeIndex = i;
+            });
+            liEls.forEach(function(li, i){
+                li.classList.remove('is-active', 'is-done');
+                if(i < activeIndex) li.classList.add('is-done');
+                else if(i === activeIndex) li.classList.add('is-active');
+            });
+        }
+        update();
+        steps.forEach(function(id){
+            var el = document.getElementById(id);
+            if(el) new MutationObserver(update).observe(el, {attributes: true, attributeFilter: ['class']});
+        });
+    })();
+</script>
 </body>
 </html>
+

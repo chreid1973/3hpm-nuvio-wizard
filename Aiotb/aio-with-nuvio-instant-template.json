@@ -1,21 +1,38 @@
 {
   "metadata": {
-    "id": "aiostreams-w/nuvio-instant-2026-06-29.00-40-42-qg7equd",
-    "name": "AIOStreams w/Nuvio Instant",
-    "description": "AIOStreams with Nuvio Instant integration \n\nTorBox or Premiumize must be enabled in Nuvio's Connected Services for Instant integration to function",
+    "id": "aio-|-3hpm-nuvio-instant-2026-07-14.19-17-56-61ctutk",
+    "name": "AIO | 3HPM Nuvio Instant",
+    "description": "3HPM Nuvio Instant\n\n",
     "source": "external",
     "author": "3HPM",
     "version": "1.0.0",
-    "category": "Debrid",
+    "category": "Nuvio Instant",
     "serviceRequired": false,
     "setToSaveInstallMenu": true
   },
   "config": {
     "trusted": false,
-    "addonName": "Time4Popcorn",
+    "showChanges": true,
+    "addonName": "AIO | TB Instant",
     "addonLogo": "https://www.techspot.com/images2/downloads/topdownload/2014/05/Popcorn_Time.png",
     "addonDescription": "The simply, high-quality AIOStreams solution. 🍿",
+    "appliedTemplates": [
+      {
+        "id": "aio-with-nuvio-instant-2026-06-27.02-56-20-4dnjwf5",
+        "version": "1.0.0"
+      },
+      {
+        "id": "nuvio-instant-aio--2026-06-27.07-17-57-h38ctd9",
+        "version": "1.0.0"
+      },
+      {
+        "id": "aiostreams-w/nuvio-instant-2026-06-29.00-40-42-qg7equd",
+        "version": "1.0.0"
+      }
+    ],
     "excludedResolutions": [],
+    "includedResolutions": [],
+    "requiredResolutions": [],
     "preferredResolutions": [
       "2160p",
       "1440p",
@@ -34,6 +51,8 @@
       "TC",
       "SCR"
     ],
+    "includedQualities": [],
+    "requiredQualities": [],
     "preferredQualities": [
       "BluRay REMUX",
       "BluRay",
@@ -41,13 +60,7 @@
       "WEBRip",
       "HDRip",
       "HC HD-Rip",
-      "DVDRip",
-      "HDTV",
-      "CAM",
-      "TS",
-      "TC",
-      "SCR",
-      "Unknown"
+      "DVDRip"
     ],
     "excludedLanguages": [],
     "includedLanguages": [],
@@ -59,13 +72,25 @@
       "Dubbed",
       "Unknown"
     ],
+    "excludedSubtitles": [],
+    "includedSubtitles": [],
+    "requiredSubtitles": [],
+    "preferredSubtitles": [],
     "excludedVisualTags": [
       "3D",
       "AI"
     ],
+    "includedVisualTags": [],
+    "requiredVisualTags": [],
     "preferredVisualTags": [],
     "preferredAudioTags": [],
+    "excludedStreamTypes": [],
+    "includedStreamTypes": [],
+    "requiredStreamTypes": [],
     "preferredStreamTypes": [],
+    "excludedEncodes": [],
+    "includedEncodes": [],
+    "requiredEncodes": [],
     "preferredEncodes": [],
     "preferredRegexPatterns": [],
     "syncedRankedRegexUrls": [
@@ -87,6 +112,7 @@
     "excludeCachedFromAddons": [],
     "excludeCachedFromServices": [],
     "excludeCachedFromStreamTypes": [],
+    "excludeUncached": true,
     "excludeUncachedFromAddons": [],
     "excludeUncachedFromServices": [],
     "excludeUncachedFromStreamTypes": [],
@@ -201,23 +227,15 @@
           "direction": "desc"
         },
         {
-          "key": "seadex",
-          "direction": "desc"
-        },
-        {
-          "key": "streamExpressionMatched",
-          "direction": "desc"
-        },
-        {
-          "key": "streamExpressionScore",
-          "direction": "desc"
-        },
-        {
           "key": "resolution",
           "direction": "desc"
         },
         {
           "key": "quality",
+          "direction": "desc"
+        },
+        {
+          "key": "bitrate",
           "direction": "desc"
         },
         {
@@ -229,11 +247,19 @@
           "direction": "desc"
         },
         {
-          "key": "bitrate",
+          "key": "language",
           "direction": "desc"
         },
         {
-          "key": "language",
+          "key": "streamExpressionMatched",
+          "direction": "desc"
+        },
+        {
+          "key": "streamExpressionScore",
+          "direction": "desc"
+        },
+        {
+          "key": "seadex",
           "direction": "desc"
         }
       ],
@@ -291,22 +317,23 @@
       ]
     },
     "tmdbAccessToken": "<template_placeholder>",
+    "tmdbApiKey": "<template_placeholder>",
     "yearMatching": {
-      "enabled": true,
+      "enabled": false,
       "tolerance": 0,
-      "strict": true,
+      "strict": false,
       "requestTypes": [],
       "addons": []
     },
     "titleMatching": {
       "mode": "exact",
       "similarityThreshold": 0.9,
-      "enabled": true,
+      "enabled": false,
       "requestTypes": [],
       "addons": []
     },
     "seasonEpisodeMatching": {
-      "enabled": true,
+      "enabled": false,
       "requestTypes": [],
       "addons": []
     },
@@ -433,22 +460,29 @@
         "id": "stremthru_newz",
         "enabled": false,
         "credentials": {}
+      },
+      {
+        "id": "aiostreams",
+        "enabled": false,
+        "credentials": {}
       }
     ],
     "presets": [
       {
-        "type": "stremthruTorz",
-        "instanceId": "99f",
+        "type": "comet",
+        "instanceId": "0cd",
         "enabled": true,
         "options": {
-          "name": "StremThru Torz",
+          "name": "Comet",
           "timeout": 5000,
           "resources": [
             "stream"
           ],
-          "mediaTypes": [],
           "includeP2P": false,
-          "useMultipleInstances": false
+          "removeTrash": true,
+          "scrapeDebridAccountTorrents": false,
+          "useMultipleInstances": false,
+          "mediaTypes": []
         }
       },
       {
@@ -463,23 +497,6 @@
           ],
           "includeP2P": false,
           "removeTrash": false,
-          "useMultipleInstances": false,
-          "mediaTypes": []
-        }
-      },
-      {
-        "type": "comet",
-        "instanceId": "0cd",
-        "enabled": true,
-        "options": {
-          "name": "Comet",
-          "timeout": 5000,
-          "resources": [
-            "stream"
-          ],
-          "includeP2P": false,
-          "removeTrash": true,
-          "scrapeDebridAccountTorrents": false,
           "useMultipleInstances": false,
           "mediaTypes": []
         }
@@ -521,29 +538,33 @@
         }
       },
       {
-        "type": "peerflix",
-        "instanceId": "890",
+        "type": "stremthruTorz",
+        "instanceId": "99f",
         "enabled": true,
         "options": {
-          "name": "Peerflix",
-          "timeout": 8000,
+          "name": "StremThru Torz",
+          "timeout": 5000,
           "resources": [
-            "stream",
-            "meta"
+            "stream"
           ],
           "mediaTypes": [],
-          "useMultipleInstances": false,
-          "showTorrentLinks": false
+          "includeP2P": false,
+          "useMultipleInstances": false
         }
       }
     ],
     "catalogModifications": [],
     "cacheAndPlay": {
-      "enabled": true,
+      "enabled": false,
       "streamTypes": [
         "usenet"
       ]
     },
-    "checkOwned": true
+    "checkOwned": false,
+    "failover": {
+      "contentTypes": [
+        "usenet"
+      ]
+    }
   }
 }

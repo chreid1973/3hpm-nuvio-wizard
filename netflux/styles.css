@@ -357,18 +357,11 @@ dialog::backdrop { background: rgba(0, 0, 0, .72); }
 }
 
 @media (max-width: 420px) {
-  .results-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .poster-wrap {
-    max-height: 260px;
-    overflow: hidden;
-  }
-
-  .poster {
-    object-fit: cover;
-  }
+  .site-header { width: min(100% - 22px, 1180px); }
+  main { width: min(100% - 22px, 1180px); }
+  .brand .eyebrow { display: none; }
+  h1 { font-size: 1rem; }
+  .results-grid { grid-template-columns: 1fr; }
 }
 
 .api-status {
@@ -380,4 +373,31 @@ dialog::backdrop { background: rgba(0, 0, 0, .72); }
   font-family: "Space Mono", monospace;
   font-size: .72rem;
   letter-spacing: .08em;
+}
+
+
+.direction-selector {
+  grid-column: 1 / -1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 5px;
+  padding: 4px;
+  border: 1px solid var(--line);
+  border-radius: 11px;
+  background: #080d0a;
+}
+
+.direction-button {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px;
+  color: var(--muted);
+  background: transparent;
+  font-weight: 700;
+}
+
+.direction-button.active {
+  color: #061008;
+  background: var(--green);
+  font-weight: 800;
 }

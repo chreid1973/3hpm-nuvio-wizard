@@ -1,9 +1,10 @@
-const WORKER_BASE = "https://netflux-api.the-geek.workers.dev";
+const WORKER_BASE = "https://netflux-api.YOUR-SUBDOMAIN.workers.dev";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
 const MAX_PAGES_PER_BATCH = 3;
 
 const state = {
   type: "movie",
+  direction: "us-only",
   nextPage: 1,
   seen: new Set(),
   exhausted: false,
@@ -20,7 +21,13 @@ const els = {
   resultsHeading: document.querySelector("#resultsHeading"),
   statusText: document.querySelector("#statusText"),
   cardTemplate: document.querySelector("#cardTemplate"),
-  segments: [...document.querySelectorAll(".segment")]
+  segments: [...document.querySelectorAll(".segment")],
+  directionButtons: [...document.querySelectorAll(".direction-button")],
+  heroHeading: document.querySelector("#heroHeading"),
+  sourceCode: document.querySelector("#sourceCode"),
+  sourceCountry: document.querySelector("#sourceCountry"),
+  excludedCode: document.querySelector("#excludedCode"),
+  excludedCountry: document.querySelector("#excludedCountry")
 };
 
 initialize();
@@ -37,6 +44,36 @@ function initialize() {
       updateSortOptions();
     });
   });
+
+  els.directionButtons.forEach(button => {
+    button.addEventListener("click", () => {
+      state.direction = button.dataset.direction;
+      els.directionButtons.forEach(item => {
+        item.classList.toggle("active", item === button);
+      });
+      updateDirectionDisplay();
+    });
+  });
+}
+
+function updateDirectionDisplay() {
+  const canadaOnly = state.direction === "ca-only";
+
+  els.sourceCode.textContent = canadaOnly ? "CA" : "US";
+  els.sourceCountry.textContent = canadaOnly ? "Canada" : "United States";
+  els.excludedCode.textContent = canadaOnly ? "US" : "CA";
+  els.excludedCountry.textContent = canadaOnly ? "United States" : "Canada";
+
+  els.heroHeading.textContent = canadaOnly
+    ? "Find titles available on Canadian Netflix but missing from US Netflix."
+    : "Find titles available on US Netflix but missing from Canadian Netflix.";
+
+  setStatus(
+    "Ready to compare",
+    canadaOnly
+      ? "Find titles listed in Canada but missing from the United States."
+      : "Find titles listed in the United States but missing from Canada."
+  );
 }
 
 function populateYears() {
@@ -84,15 +121,18 @@ async function loadBatch() {
 
     while (pagesChecked < MAX_PAGES_PER_BATCH && !state.exhausted) {
       const page = state.nextPage;
-      const [usData, caData] = await Promise.all([
-        discover("US", page),
-        discover("CA", page)
+      const sourceRegion = state.direction === "ca-only" ? "CA" : "US";
+      const excludedRegion = state.direction === "ca-only" ? "US" : "CA";
+
+      const [sourceData, excludedData] = await Promise.all([
+        discover(sourceRegion, page),
+        discover(excludedRegion, page)
       ]);
 
-      const caIds = new Set(caData.results.map(item => item.id));
-      const uniqueToUs = usData.results.filter(item => !caIds.has(item.id));
+      const excludedIds = new Set(excludedData.results.map(item => item.id));
+      const exclusiveTitles = sourceData.results.filter(item => !excludedIds.has(item.id));
 
-      for (const item of uniqueToUs) {
+      for (const item of exclusiveTitles) {
         const key = `${state.type}:${item.id}`;
         if (!state.seen.has(key)) {
           state.seen.add(key);
@@ -104,12 +144,13 @@ async function loadBatch() {
       state.nextPage++;
       pagesChecked++;
 
-      const maxPage = Math.min(usData.total_pages || 1, 500);
+      const maxPage = Math.min(sourceData.total_pages || 1, 500);
       if (state.nextPage > maxPage) state.exhausted = true;
     }
 
     const totalShown = state.seen.size;
-    els.resultsHeading.textContent = `${totalShown} likely US-only ${state.type === "movie" ? "movies" : "TV shows"}`;
+    const regionLabel = state.direction === "ca-only" ? "Canada-only" : "US-only";
+    els.resultsHeading.textContent = `${totalShown} likely ${regionLabel} ${state.type === "movie" ? "movies" : "TV shows"}`;
     els.statusText.textContent = added
       ? `Checked through page ${state.nextPage - 1}. Load more to continue comparing.`
       : `No additional differences found in the latest ${pagesChecked} pages checked.`;
@@ -160,6 +201,9 @@ function renderCard(item) {
   const title = state.type === "movie" ? item.title : item.name;
   const date = state.type === "movie" ? item.release_date : item.first_air_date;
   const year = date ? date.slice(0, 4) : "Year unknown";
+  const availabilityText = state.direction === "ca-only"
+    ? "CANADIAN NETFLIX · NOT LISTED IN THE US"
+    : "US NETFLIX · NOT LISTED IN CANADA";
   const poster = fragment.querySelector(".poster");
 
   poster.src = item.poster_path
@@ -168,6 +212,7 @@ function renderCard(item) {
   poster.alt = `${title} poster`;
   poster.loading = "lazy";
 
+  fragment.querySelector(".availability").textContent = availabilityText;
   fragment.querySelector(".rating").textContent = item.vote_average
     ? `★ ${item.vote_average.toFixed(1)}`
     : "No rating";

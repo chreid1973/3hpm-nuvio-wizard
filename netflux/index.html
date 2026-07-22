@@ -24,25 +24,30 @@
     <section class="hero panel">
       <div>
         <p class="eyebrow">UNITED STATES VS CANADA</p>
-        <h2>Find titles available on US Netflix but missing from Canadian Netflix.</h2>
+        <h2 id="heroHeading">Find titles available on US Netflix but missing from Canadian Netflix.</h2>
         <p class="lede">This tool compares TMDB watch-provider listings for both countries. It does not bypass Netflix restrictions or change your region. No API key is required from visitors.</p>
       </div>
       <div class="comparison" aria-label="Catalogue comparison">
         <div class="country-card">
-          <span class="flag">US</span>
+          <span id="sourceCode" class="flag">US</span>
           <strong>Available in</strong>
-          <span>United States</span>
+          <span id="sourceCountry">United States</span>
         </div>
         <span class="minus">−</span>
         <div class="country-card">
-          <span class="flag">CA</span>
+          <span id="excludedCode" class="flag">CA</span>
           <strong>Missing from</strong>
-          <span>Canada</span>
+          <span id="excludedCountry">Canada</span>
         </div>
       </div>
     </section>
 
     <section class="controls panel" aria-label="Search controls">
+      <div class="direction-selector" role="group" aria-label="Comparison direction">
+        <button class="direction-button active" data-direction="us-only" type="button">US Only</button>
+        <button class="direction-button" data-direction="ca-only" type="button">Canada Only</button>
+      </div>
+
       <div class="segmented" role="group" aria-label="Content type">
         <button class="segment active" data-type="movie" type="button">Movies</button>
         <button class="segment" data-type="tv" type="button">TV Shows</button>
@@ -104,7 +109,7 @@
         <span class="rating"></span>
       </div>
       <div class="card-body">
-        <p class="availability">US NETFLIX · NOT LISTED IN CANADA</p>
+        <p class="availability"></p>
         <h3 class="title"></h3>
         <p class="meta"></p>
         <p class="overview"></p>

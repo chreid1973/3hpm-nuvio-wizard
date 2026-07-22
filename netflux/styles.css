@@ -401,3 +401,90 @@ dialog::backdrop { background: rgba(0, 0, 0, .72); }
   background: var(--green);
   font-weight: 800;
 }
+
+
+/* Compact mobile result cards */
+@media (max-width: 660px) {
+  .results-grid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .title-card {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: stretch;
+    min-height: 168px;
+  }
+
+  .poster-wrap {
+    width: 112px;
+    height: 168px;
+    aspect-ratio: auto;
+    overflow: hidden;
+  }
+
+  .poster {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  .card-body {
+    min-width: 0;
+    padding: 12px;
+  }
+
+  .availability {
+    margin-bottom: 6px;
+    font-size: 0.58rem;
+    line-height: 1.35;
+    letter-spacing: 0.08em;
+  }
+
+  .card-body .title {
+    margin-bottom: 5px;
+    font-size: 1rem;
+    line-height: 1.2;
+  }
+
+  .meta {
+    margin-bottom: 8px;
+    font-size: 0.76rem;
+  }
+
+  .overview {
+    margin-bottom: 6px;
+    font-size: 0.8rem;
+    line-height: 1.38;
+    -webkit-line-clamp: 3;
+  }
+
+  .details-link {
+    margin-top: 0;
+    font-size: 0.8rem;
+  }
+
+  .rating {
+    right: 7px;
+    bottom: 7px;
+    padding: 5px 7px;
+    font-size: 0.72rem;
+  }
+}
+
+@media (max-width: 390px) {
+  .title-card {
+    grid-template-columns: 96px minmax(0, 1fr);
+    min-height: 144px;
+  }
+
+  .poster-wrap {
+    width: 96px;
+    height: 144px;
+  }
+
+  .overview {
+    -webkit-line-clamp: 2;
+  }
+}

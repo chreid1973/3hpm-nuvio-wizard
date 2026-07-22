@@ -71,8 +71,8 @@ function updateDirectionDisplay() {
   setStatus(
     "Ready to compare",
     canadaOnly
-      ? "Find titles listed in Canada but missing from the United States."
-      : "Find titles listed in the United States but missing from Canada."
+      ? "Find titles confirmed on Canadian Netflix but not US Netflix."
+      : "Find titles confirmed on US Netflix but not Canadian Netflix."
   );
 }
 
@@ -113,7 +113,7 @@ async function loadBatch() {
   state.loading = true;
   els.compareButton.disabled = true;
   els.loadMoreButton.disabled = true;
-  setStatus("Comparing catalogues…", "Checking matching pages for US and Canadian Netflix.");
+  setStatus("Verifying catalogue availability…", "Checking each title in both Netflix regions.");
 
   try {
     let added = 0;
@@ -123,16 +123,9 @@ async function loadBatch() {
       const page = state.nextPage;
       const sourceRegion = state.direction === "ca-only" ? "CA" : "US";
       const excludedRegion = state.direction === "ca-only" ? "US" : "CA";
+      const data = await comparePage(sourceRegion, excludedRegion, page);
 
-      const [sourceData, excludedData] = await Promise.all([
-        discover(sourceRegion, page),
-        discover(excludedRegion, page)
-      ]);
-
-      const excludedIds = new Set(excludedData.results.map(item => item.id));
-      const exclusiveTitles = sourceData.results.filter(item => !excludedIds.has(item.id));
-
-      for (const item of exclusiveTitles) {
+      for (const item of data.results) {
         const key = `${state.type}:${item.id}`;
         if (!state.seen.has(key)) {
           state.seen.add(key);
@@ -144,21 +137,21 @@ async function loadBatch() {
       state.nextPage++;
       pagesChecked++;
 
-      const maxPage = Math.min(sourceData.total_pages || 1, 500);
+      const maxPage = Math.min(data.total_pages || 1, 500);
       if (state.nextPage > maxPage) state.exhausted = true;
     }
 
     const totalShown = state.seen.size;
     const regionLabel = state.direction === "ca-only" ? "Canada-only" : "US-only";
-    els.resultsHeading.textContent = `${totalShown} likely ${regionLabel} ${state.type === "movie" ? "movies" : "TV shows"}`;
+    els.resultsHeading.textContent = `${totalShown} verified ${regionLabel} ${state.type === "movie" ? "movies" : "TV shows"}`;
     els.statusText.textContent = added
-      ? `Checked through page ${state.nextPage - 1}. Load more to continue comparing.`
-      : `No additional differences found in the latest ${pagesChecked} pages checked.`;
+      ? `Verified through source page ${state.nextPage - 1}. Load more to continue.`
+      : `No additional verified exclusives found in the latest ${pagesChecked} pages checked.`;
 
     els.loadMoreButton.classList.toggle("hidden", state.exhausted);
 
     if (!totalShown) {
-      renderMessage("No differences found yet. Try another sort order or load a wider date range.");
+      renderMessage("No verified exclusives found yet. Try another sort order or load more pages.");
     }
   } catch (error) {
     console.error(error);
@@ -171,17 +164,18 @@ async function loadBatch() {
   }
 }
 
-async function discover(region, page) {
+async function comparePage(sourceRegion, excludedRegion, page) {
   const params = new URLSearchParams({
     type: state.type,
-    region,
+    source_region: sourceRegion,
+    excluded_region: excludedRegion,
     page: String(page),
     sort_by: els.sortBy.value,
     min_rating: els.minRating.value,
     year_from: els.yearFrom.value
   });
 
-  const response = await fetch(`${WORKER_BASE}/discover?${params}`, {
+  const response = await fetch(`${WORKER_BASE}/compare?${params}`, {
     headers: { accept: "application/json" }
   });
 
@@ -202,8 +196,8 @@ function renderCard(item) {
   const date = state.type === "movie" ? item.release_date : item.first_air_date;
   const year = date ? date.slice(0, 4) : "Year unknown";
   const availabilityText = state.direction === "ca-only"
-    ? "CANADIAN NETFLIX · NOT LISTED IN THE US"
-    : "US NETFLIX · NOT LISTED IN CANADA";
+    ? "CANADIAN NETFLIX · VERIFIED NOT IN THE US"
+    : "US NETFLIX · VERIFIED NOT IN CANADA";
   const poster = fragment.querySelector(".poster");
 
   poster.src = item.poster_path
@@ -232,7 +226,7 @@ function renderMessage(message, isError = false) {
 }
 
 function makePlaceholder(title) {
-  const safeTitle = (title || "No Poster").replace(/[<>&'"]/g, "");
+  const safeTitle = (title || "No Poster").replace(/[<>&'\"]/g, "");
   const svg = `
     <svg xmlns="http://www.w3.org/2000/svg" width="500" height="750">
       <rect width="100%" height="100%" fill="#111a16"/>

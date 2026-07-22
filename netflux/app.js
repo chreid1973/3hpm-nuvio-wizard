@@ -1,7 +1,5 @@
-const TMDB_BASE = "https://api.themoviedb.org/3";
+const WORKER_BASE = "https://netflux-api.the-geek.workers.dev/";
 const IMAGE_BASE = "https://image.tmdb.org/t/p/w500";
-const TOKEN_KEY = "netflixCompareTmdbToken";
-const NETFLIX_PROVIDER_ID = 8;
 const MAX_PAGES_PER_BATCH = 3;
 
 const state = {
@@ -13,11 +11,6 @@ const state = {
 };
 
 const els = {
-  settingsButton: document.querySelector("#settingsButton"),
-  settingsDialog: document.querySelector("#settingsDialog"),
-  apiToken: document.querySelector("#apiToken"),
-  saveTokenButton: document.querySelector("#saveTokenButton"),
-  clearTokenButton: document.querySelector("#clearTokenButton"),
   compareButton: document.querySelector("#compareButton"),
   loadMoreButton: document.querySelector("#loadMoreButton"),
   sortBy: document.querySelector("#sortBy"),
@@ -34,10 +27,6 @@ initialize();
 
 function initialize() {
   populateYears();
-  els.apiToken.value = localStorage.getItem(TOKEN_KEY) || "";
-  els.settingsButton.addEventListener("click", () => els.settingsDialog.showModal());
-  els.saveTokenButton.addEventListener("click", saveToken);
-  els.clearTokenButton.addEventListener("click", clearToken);
   els.compareButton.addEventListener("click", startComparison);
   els.loadMoreButton.addEventListener("click", loadBatch);
 
@@ -73,32 +62,7 @@ function updateSortOptions() {
   }
 }
 
-function saveToken(event) {
-  event.preventDefault();
-  const token = els.apiToken.value.trim();
-  if (!token) {
-    localStorage.removeItem(TOKEN_KEY);
-    setStatus("Token removed", "Add a TMDB token before comparing catalogues.");
-  } else {
-    localStorage.setItem(TOKEN_KEY, token);
-    setStatus("Token saved", "Your token is stored only in this browser.");
-  }
-  els.settingsDialog.close();
-}
-
-function clearToken() {
-  els.apiToken.value = "";
-  localStorage.removeItem(TOKEN_KEY);
-  setStatus("Token cleared", "Add a TMDB token before comparing catalogues.");
-}
-
 async function startComparison() {
-  if (!getToken()) {
-    els.settingsDialog.showModal();
-    setStatus("TMDB token required", "Paste your API Read Access Token in API Settings.");
-    return;
-  }
-
   state.nextPage = 1;
   state.seen.clear();
   state.exhausted = false;
@@ -157,8 +121,8 @@ async function loadBatch() {
     }
   } catch (error) {
     console.error(error);
-    renderMessage(error.message || "The comparison failed. Check your token and try again.", true);
-    setStatus("Comparison failed", "Check the error below and verify your TMDB token.");
+    renderMessage(error.message || "The comparison failed. Please try again.", true);
+    setStatus("Comparison failed", "The catalogue service could not complete this request.");
   } finally {
     state.loading = false;
     els.compareButton.disabled = false;
@@ -167,34 +131,26 @@ async function loadBatch() {
 }
 
 async function discover(region, page) {
-  const endpoint = state.type === "movie" ? "/discover/movie" : "/discover/tv";
   const params = new URLSearchParams({
-    language: "en-CA",
+    type: state.type,
+    region,
     page: String(page),
     sort_by: els.sortBy.value,
-    watch_region: region,
-    with_watch_providers: String(NETFLIX_PROVIDER_ID),
-    with_watch_monetization_types: "flatrate",
-    include_adult: "false",
-    "vote_average.gte": els.minRating.value,
-    "vote_count.gte": els.minRating.value === "0" ? "0" : "30"
+    min_rating: els.minRating.value,
+    year_from: els.yearFrom.value
   });
 
-  const year = els.yearFrom.value;
-  if (year) {
-    const dateField = state.type === "movie" ? "primary_release_date.gte" : "first_air_date.gte";
-    params.set(dateField, `${year}-01-01`);
+  const response = await fetch(`${WORKER_BASE}/discover?${params}`, {
+    headers: { accept: "application/json" }
+  });
+
+  if (response.status === 429) {
+    throw new Error("Too many requests were made at once. Wait a moment and try again.");
   }
-
-  const response = await fetch(`${TMDB_BASE}${endpoint}?${params}`, {
-    headers: {
-      Authorization: `Bearer ${getToken()}`,
-      accept: "application/json"
-    }
-  });
-
-  if (response.status === 401) throw new Error("TMDB rejected the token. Use the API Read Access Token, not the shorter API key.");
-  if (!response.ok) throw new Error(`TMDB returned HTTP ${response.status}. Please try again.`);
+  if (!response.ok) {
+    const body = await response.json().catch(() => ({}));
+    throw new Error(body.error || `Catalogue service returned HTTP ${response.status}.`);
+  }
 
   return response.json();
 }
@@ -241,10 +197,6 @@ function makePlaceholder(title) {
         fill="#22c55e" font-family="Arial" font-size="18">${safeTitle.slice(0, 36)}</text>
     </svg>`;
   return `data:image/svg+xml;charset=UTF-8,${encodeURIComponent(svg)}`;
-}
-
-function getToken() {
-  return localStorage.getItem(TOKEN_KEY)?.trim() || "";
 }
 
 function setStatus(heading, text) {

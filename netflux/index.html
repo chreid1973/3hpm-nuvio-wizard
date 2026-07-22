@@ -17,7 +17,7 @@
         <h1>Netflix Catalogue Compare</h1>
       </div>
     </div>
-    <button id="settingsButton" class="ghost-button" type="button">API Settings</button>
+    <span class="api-status">Protected API</span>
   </header>
 
   <main>
@@ -25,7 +25,7 @@
       <div>
         <p class="eyebrow">UNITED STATES VS CANADA</p>
         <h2>Find titles available on US Netflix but missing from Canadian Netflix.</h2>
-        <p class="lede">This tool compares TMDB watch-provider listings for both countries. It does not bypass Netflix restrictions or change your region.</p>
+        <p class="lede">This tool compares TMDB watch-provider listings for both countries. It does not bypass Netflix restrictions or change your region. No API key is required from visitors.</p>
       </div>
       <div class="comparison" aria-label="Catalogue comparison">
         <div class="country-card">
@@ -81,7 +81,7 @@
     <section class="status-row">
       <div>
         <h3 id="resultsHeading">Ready to compare</h3>
-        <p id="statusText">Add your free TMDB read-access token in API Settings, then run the comparison.</p>
+        <p id="statusText">Choose your filters, then run the comparison.</p>
       </div>
       <button id="loadMoreButton" class="ghost-button hidden" type="button">Load More</button>
     </section>
@@ -92,32 +92,10 @@
       <h3>Data note</h3>
       <p>Availability data is supplied by TMDB through its JustWatch partnership and can lag behind recent Netflix licensing changes. JustWatch attribution is required when displaying this data.</p>
       <p class="attribution">Streaming availability data provided by <a href="https://www.justwatch.com/" target="_blank" rel="noopener noreferrer">JustWatch</a>. Movie and TV metadata provided by <a href="https://www.themoviedb.org/" target="_blank" rel="noopener noreferrer">TMDB</a>.</p>
+      <p class="attribution">This product uses the TMDB API but is not endorsed or certified by TMDB.</p>
     </section>
   </main>
 
-  <dialog id="settingsDialog">
-    <form method="dialog" class="settings-form">
-      <div class="dialog-heading">
-        <div>
-          <p class="eyebrow">SETUP</p>
-          <h2>TMDB API Settings</h2>
-        </div>
-        <button class="icon-button" value="cancel" aria-label="Close settings">×</button>
-      </div>
-
-      <p>Create a free TMDB account, request API access, then paste your API Read Access Token below. It stays in this browser and is sent only to TMDB.</p>
-
-      <label>
-        API Read Access Token
-        <textarea id="apiToken" rows="5" placeholder="Paste the long TMDB bearer token here"></textarea>
-      </label>
-
-      <div class="dialog-actions">
-        <button id="clearTokenButton" class="ghost-button" type="button">Clear Token</button>
-        <button id="saveTokenButton" class="primary-button" value="default">Save Token</button>
-      </div>
-    </form>
-  </dialog>
 
   <template id="cardTemplate">
     <article class="title-card">

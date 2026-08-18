@@ -11,6 +11,7 @@
     r240p: '240p',
     unknown: 'Unknown'
   };
+  let meteorDefaultsApplied = false;
 
   function addMeteorChoice() {
     const picker = document.querySelector('.addonPicker');
@@ -62,6 +63,22 @@
     `);
   }
 
+  function applyWorkingMeteorDefaults() {
+    if (meteorDefaultsApplied) return;
+    meteorDefaultsApplied = true;
+
+    setSelectedResolutions(resolutionKeys);
+    if (document.getElementById('cachedOnly')) document.getElementById('cachedOnly').checked = true;
+    if (document.getElementById('removeTrash')) document.getElementById('removeTrash').checked = false;
+    if (document.getElementById('maxResults')) document.getElementById('maxResults').value = 0;
+    if (document.getElementById('meteorRemoveSamples')) document.getElementById('meteorRemoveSamples').checked = false;
+    if (document.getElementById('meteorExclude3D')) document.getElementById('meteorExclude3D').checked = false;
+    if (document.getElementById('meteorAllowAdult')) document.getElementById('meteorAllowAdult').checked = true;
+    if (document.getElementById('meteorMinSeeders')) document.getElementById('meteorMinSeeders').value = 0;
+    if (document.getElementById('meteorMaxResults')) document.getElementById('meteorMaxResults').value = 0;
+    if (document.getElementById('meteorPreferredLangs')) document.getElementById('meteorPreferredLangs').value = 'en-multi';
+  }
+
   function buildMeteorConfig() {
     const selectedResolutions = getSelectedResolutions();
     const allSelected = resolutionKeys.every(key => selectedResolutions.includes(key));
@@ -100,6 +117,13 @@
 
   addMeteorChoice();
   addMeteorOptions();
+
+  const meteorInput = document.querySelector('.addonOption[value="meteor"]');
+  meteorInput?.addEventListener('change', () => {
+    if (!meteorInput.checked) return;
+    applyWorkingMeteorDefaults();
+    updateOutput();
+  });
 
   const originalBuildSelectedManifests = window.buildSelectedManifests;
   window.buildSelectedManifests = function () {

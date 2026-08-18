@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>3HPM Nuvio Connected Services Wizard</title>
-    <meta name="description" content="Generate a keyless Comet, Torrentio, or StremThru Torz manifest for Nuvio Connected Services.">
+    <meta name="description" content="Generate one keyless Comet, Torrentio, StremThru Torz, or Meteor manifest at a time for Nuvio Connected Services.">
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="suite.css">
     <style>
@@ -64,7 +64,7 @@
             <header class="tool-hero">
                 <span class="tag">Module 01 · Connected Services</span>
                 <h1>The <em>single-addon</em> manifest wizard for Nuvio.</h1>
-                <p class="lede">Build one clean, keyless manifest at a time for Comet, Torrentio, or StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.</p>
+                <p class="lede">Build one clean, keyless manifest at a time for Comet, Torrentio, StremThru Torz, or Meteor. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.</p>
                 <aside class="notice" role="note">
                     <span class="stamp">Read me</span>
                     <p><strong>Nuvio Connected Services only.</strong> This tool builds scraper manifests. TorBox authentication stays inside Nuvio.</p>
@@ -74,7 +74,7 @@
             <nav class="progress" aria-label="Wizard progress">
                 <ol>
                     <li data-target="step1" class="is-active"><span class="num">01</span><span class="title">Nuvio setup</span></li>
-                    <li data-target="step2"><span class="num">02</span><span class="title">Addon setup</span></li>
+                    <li data-target="step2"><span class="num">02</span><span class="title">Scraper setup</span></li>
                     <li data-target="step3"><span class="num">03</span><span class="title">Install</span></li>
                 </ol>
             </nav>
@@ -100,7 +100,7 @@
                             <p>Nuvio labels Connected Services as experimental. Settings may change, move, or be removed in future Nuvio releases.</p>
                         </aside>
                         <div class="stepActions">
-                            <button type="button" class="btn primary nextStep" data-next="step2">Continue to addon setup →</button>
+                            <button type="button" class="btn primary nextStep" data-next="step2">Continue to scraper setup →</button>
                         </div>
                     </div>
                 </section>
@@ -109,7 +109,7 @@
                     <header class="stepHeader">
                         <span class="stepNumber">02</span>
                         <div>
-                            <span class="stamp">Addon setup</span>
+                            <span class="stamp">Scraper setup</span>
                             <h2>Choose one addon and configure it.</h2>
                         </div>
                     </header>
@@ -122,7 +122,7 @@
                                     <option value="torrentio">Torrentio</option>
                                     <option value="stremthru">StremThru Torz</option>
                                 </select>
-                                <small>Select one addon to configure.</small>
+                                <small>Select one addon.</small>
                             </div>
                             <div class="field">
                                 <label for="instance">Comet instance</label>
@@ -202,7 +202,7 @@
 
                         <aside class="notice" role="note">
                             <span class="stamp">Nuvio filters</span>
-                            <p>The wizard controls what Comet and Torrentio send to Nuvio. StremThru Torz uses its fixed tested manifest. Use Nuvio's Connected Services settings for final filtering and formatting.</p>
+                            <p>The wizard controls what each configurable scraper sends to Nuvio. StremThru Torz uses its fixed tested manifest. Use Nuvio's Connected Services settings for final filtering and formatting.</p>
                         </aside>
 
                         <div class="stepActions">
@@ -252,13 +252,14 @@
             </form>
 
             <footer class="pageFooter">
-                <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, StremThru, or TorBox.</p>
+                <p class="disclaimer">An independent 3HPM utility. Not affiliated with Nuvio, Comet, Torrentio, StremThru, Meteor, or TorBox.</p>
                 <p class="signoff">Built by <a href="https://3hpm.ca" target="_blank" rel="noopener noreferrer">3 Hole Punch Media</a></p>
             </footer>
         </section>
     </div>
 
     <script src="app.js?v=20260818-single-addon"></script>
+    <script src="meteor.js?v=20260818-configurable"></script>
     <script>
         (function () {
             var addonInputs = document.querySelectorAll('.addonOption');
@@ -286,7 +287,7 @@
             if (heroTitle) heroTitle.innerHTML = 'The <em>single-addon</em> manifest wizard for Nuvio.';
 
             var lede = document.querySelector('.tool-hero .lede');
-            if (lede) lede.innerHTML = 'Build one clean, keyless manifest at a time for Comet, Torrentio, or StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.';
+            if (lede) lede.innerHTML = 'Build one clean, keyless manifest at a time for Comet, Torrentio, StremThru Torz, or Meteor. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.';
 
             var stepTwoTitle = document.querySelector('#step2 .stepHeader h2');
             if (stepTwoTitle) stepTwoTitle.textContent = 'Choose one addon and configure it.';

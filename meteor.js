@@ -60,7 +60,7 @@
           </div>
         </div>
       </fieldset>
-    `);
+    `;
   }
 
   function applyWorkingMeteorDefaults() {
@@ -111,7 +111,7 @@
   }
 
   function buildMeteorManifestUrl() {
-    const encoded = base64EncodeUnicode(JSON.stringify(buildMeteorConfig()));
+    const encoded = base64EncodeUnicode(JSON.stringify(buildMeteorConfig())).replace(/=+$/, '');
     return `${meteorBaseUrl}/${encoded}/manifest.json`;
   }
 

@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>3HPM Nuvio Connected Services Wizard</title>
-    <meta name="description" content="Generate one or more keyless Comet, Torrentio, and StremThru Torz manifests for Nuvio Connected Services.">
+    <meta name="description" content="Generate a keyless Comet, Torrentio, or StremThru Torz manifest for Nuvio Connected Services.">
     <link rel="stylesheet" href="global.css">
     <link rel="stylesheet" href="suite.css">
     <style>
@@ -63,8 +63,8 @@
         <section class="card">
             <header class="tool-hero">
                 <span class="tag">Module 01 · Connected Services</span>
-                <h1>The <em>multi-addon</em> manifest wizard for Nuvio.</h1>
-                <p class="lede">Build one or more clean, keyless manifests for Comet, Torrentio, and StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then generate the addon URLs. <strong>No TorBox API key</strong> goes into this wizard.</p>
+                <h1>The <em>single-addon</em> manifest wizard for Nuvio.</h1>
+                <p class="lede">Build one clean, keyless manifest at a time for Comet, Torrentio, or StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.</p>
                 <aside class="notice" role="note">
                     <span class="stamp">Read me</span>
                     <p><strong>Nuvio Connected Services only.</strong> This tool builds scraper manifests. TorBox authentication stays inside Nuvio.</p>
@@ -74,7 +74,7 @@
             <nav class="progress" aria-label="Wizard progress">
                 <ol>
                     <li data-target="step1" class="is-active"><span class="num">01</span><span class="title">Nuvio setup</span></li>
-                    <li data-target="step2"><span class="num">02</span><span class="title">Scraper setup</span></li>
+                    <li data-target="step2"><span class="num">02</span><span class="title">Addon setup</span></li>
                     <li data-target="step3"><span class="num">03</span><span class="title">Install</span></li>
                 </ol>
             </nav>
@@ -89,7 +89,7 @@
                         </div>
                     </header>
                     <div class="stepBody">
-                        <p>Complete these checks inside Nuvio before generating the manifests. This is the part people most often miss.</p>
+                        <p>Complete these checks inside Nuvio before generating the manifest. This is the part people most often miss.</p>
                         <div class="setupChecklist">
                             <label><input type="checkbox" id="confirmTorbox"><span>TorBox is connected in Nuvio under <b>Settings → Integrations → Connected Services → TorBox</b>.</span></label>
                             <label><input type="checkbox" id="confirmResolve"><span><b>Resolve playable links</b> is toggled on in Connected Services.</span></label>
@@ -100,7 +100,7 @@
                             <p>Nuvio labels Connected Services as experimental. Settings may change, move, or be removed in future Nuvio releases.</p>
                         </aside>
                         <div class="stepActions">
-                            <button type="button" class="btn primary nextStep" data-next="step2">Continue to scraper setup →</button>
+                            <button type="button" class="btn primary nextStep" data-next="step2">Continue to addon setup →</button>
                         </div>
                     </div>
                 </section>
@@ -109,20 +109,20 @@
                     <header class="stepHeader">
                         <span class="stepNumber">02</span>
                         <div>
-                            <span class="stamp">Scraper setup</span>
-                            <h2>Choose your addons and settings.</h2>
+                            <span class="stamp">Addon setup</span>
+                            <h2>Choose one addon and configure it.</h2>
                         </div>
                     </header>
                     <div class="stepBody">
                         <div class="fieldGroup">
                             <div class="field">
-                                <label for="addon">Scraper addons</label>
+                                <label for="addon">Scraper addon</label>
                                 <select id="addon" name="addon">
                                     <option value="comet" selected>Comet</option>
                                     <option value="torrentio">Torrentio</option>
                                     <option value="stremthru">StremThru Torz</option>
                                 </select>
-                                <small>Select one or more addons.</small>
+                                <small>Select one addon to configure.</small>
                             </div>
                             <div class="field">
                                 <label for="instance">Comet instance</label>
@@ -207,7 +207,7 @@
 
                         <div class="stepActions">
                             <button type="button" class="btn ghost backStep" data-prev="step1">← Back</button>
-                            <button type="button" class="btn primary nextStep" data-next="step3">Generate manifests →</button>
+                            <button type="button" class="btn primary nextStep" data-next="step3">Generate manifest →</button>
                         </div>
                     </div>
                 </section>
@@ -217,13 +217,13 @@
                         <span class="stepNumber">03</span>
                         <div>
                             <span class="stamp">Install</span>
-                            <h2>Copy your manifest URLs.</h2>
+                            <h2>Copy your manifest URL.</h2>
                         </div>
                     </header>
                     <div class="stepBody output">
                         <div class="manifestBox">
                             <div class="manifestHeader">
-                                <span>Manifests · Ready</span>
+                                <span>Manifest · Ready</span>
                                 <span>TorBox · Instant</span>
                             </div>
                             <div id="manifestList"></div>
@@ -233,15 +233,15 @@
                             <div class="qrWrap">
                                 <p style="font-size: 14px; font-weight: bold; margin-bottom: 8px;">Scan to open Nuvio Addons</p>
                                 <div class="qrFrame"><img id="qrCode" alt="QR code for Nuvio addons page"></div>
-                                <small>Copy your manifest URLs first, then scan this to open Nuvio's addon page and paste them one at a time.</small>
+                                <small>Copy your manifest URL first, then scan this to open Nuvio's addon page and paste it.</small>
                             </div>
                         </div>
 
                         <div class="finalSteps">
                             <h3>Finish in Nuvio</h3>
                             <ol>
-                                <li><span class="num">1</span><span>Add each generated manifest URL to Nuvio.</span></li>
-                                <li><span class="num">2</span><span>Enable each new addon.</span></li>
+                                <li><span class="num">1</span><span>Add the generated manifest URL to Nuvio.</span></li>
+                                <li><span class="num">2</span><span>Enable the new addon.</span></li>
                             </ol>
                         </div>
                         <div class="stepActions" style="margin-top:24px;">
@@ -258,7 +258,67 @@
         </section>
     </div>
 
-    <script src="app.js?v=20260717-cohesive-ui"></script>
+    <script src="app.js?v=20260818-single-addon"></script>
+    <script>
+        (function () {
+            var addonInputs = document.querySelectorAll('.addonOption');
+            addonInputs.forEach(function (input) {
+                input.type = 'radio';
+                input.name = 'addonChoice';
+            });
+
+            var addonPicker = document.querySelector('.addonPicker');
+            if (addonPicker) {
+                addonPicker.setAttribute('role', 'radiogroup');
+                addonPicker.setAttribute('aria-label', 'Choose one scraper addon');
+            }
+
+            var pickerActions = document.querySelector('.addonPickerActions');
+            if (pickerActions) pickerActions.remove();
+
+            var pickerLabel = document.querySelector('.addonPicker')?.previousElementSibling;
+            if (pickerLabel) pickerLabel.textContent = 'Scraper addon';
+
+            var settingsNote = document.getElementById('addonSettingsNote');
+            if (settingsNote) settingsNote.textContent = 'Choose one addon. Only settings supported by that addon will be shown.';
+
+            var heroTitle = document.querySelector('.tool-hero h1');
+            if (heroTitle) heroTitle.innerHTML = 'The <em>single-addon</em> manifest wizard for Nuvio.';
+
+            var lede = document.querySelector('.tool-hero .lede');
+            if (lede) lede.innerHTML = 'Build one clean, keyless manifest at a time for Comet, Torrentio, or StremThru Torz. Connect TorBox in Nuvio first, make sure <em>Resolve playable links</em> is enabled, then choose an addon and generate its URL. <strong>No TorBox API key</strong> goes into this wizard.';
+
+            var stepTwoTitle = document.querySelector('#step2 .stepHeader h2');
+            if (stepTwoTitle) stepTwoTitle.textContent = 'Choose one addon and configure it.';
+
+            var generateButton = document.querySelector('#step2 .nextStep');
+            if (generateButton) generateButton.textContent = 'Generate manifest →';
+
+            var stepThreeTitle = document.querySelector('#step3 .stepHeader h2');
+            if (stepThreeTitle) stepThreeTitle.textContent = 'Copy your manifest URL.';
+
+            var manifestHeader = document.querySelector('#step3 .manifestHeader');
+            if (manifestHeader) {
+                manifestHeader.innerHTML = '<span class="ribbon">Manifest · Ready</span><span>Selected addon · TorBox · Instant</span>';
+            }
+
+            var copyAllRow = document.querySelector('#step3 .copyAllRow');
+            if (copyAllRow) copyAllRow.remove();
+
+            var qrHelper = document.querySelector('#step3 .qrWrap small');
+            if (qrHelper) qrHelper.textContent = 'Copy your manifest URL first, then scan this to open Nuvio’s addon page and paste it.';
+
+            var finalSteps = document.querySelector('#step3 .finalSteps ol');
+            if (finalSteps) {
+                finalSteps.innerHTML = `
+                    <li><span class="num">1</span><span>Add the generated manifest URL to Nuvio.</span></li>
+                    <li><span class="num">2</span><span>Enable the new addon.</span></li>
+                    <li><span class="num">3</span><span>Rename the addon to its suggested 3HPM name in the Nuvio web account.</span></li>
+                    <li><span class="num">4</span><span>Optional — format your Connected Services feed in Nuvio's website editor or mobile editor. Start from the 3HPM CrispyDuck format at <a href="https://crispyduck.xyz/?load=4afgx3vf" target="_blank" rel="noopener">crispyduck.xyz/?load=4afgx3vf</a>, or create your own.</span></li>
+                `;
+            }
+        })();
+    </script>
     <script>
         (function () {
             var steps = ['step1', 'step2', 'step3'];
